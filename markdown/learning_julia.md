@@ -6,7 +6,7 @@ Julia works as a calculator
 ```julia
 2+2
 (2+2)*5
-((12+12)/6)**2 # the symbol ^ means "to the power of"
+((12+12)/6)^2 # the symbol ^ means "to the power of"
 ```
 
 ## Comments in code
@@ -224,7 +224,7 @@ q
 
 ## Functions
 
-Often we want to repeat complicated set of instructions several times, but with different input.  In this case it can be useful to define a function.  These are analagous to mathematical functions, they take some arguments as input, carry out some tasks, and optionally provide some output.  Typically, the advantage of installing Python packages is that they contain many complicated, interesting functions, that we can re-use if we just know what input data to supply them, and what they do.
+Often we want to repeat complicated set of instructions several times, but with different input.  In this case it can be useful to define a function.  These are analogous to mathematical functions, they take some arguments as input, carry out some tasks, and optionally provide some output.  Typically, the advantage of installing Python packages is that they contain many complicated, interesting functions, that we can re-use if we just know what input data to supply them, and what they do.
 
 First let's look at some trigonometry functions from Julia itself:
 ```julia
@@ -237,7 +237,7 @@ tan(x)
 
 We can define our own function of a and b which does something different
 ```julia
-function myfunc(a,b)
+function patrick(a,b)
     c=a+b
     d=a^2
     c*d
@@ -246,6 +246,12 @@ end
 myfunc(10,29)
 myfunc(1,2)
 myfunc(10.3,45.9)
+
+function testbigger(;x=2,y=20)
+  if y>x print("y is bigger") else print("y is smaller") end
+end
+
+testbigger(2,3)
 ```
 
 ## TODO:
