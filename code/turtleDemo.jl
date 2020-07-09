@@ -17,3 +17,8 @@ end
 fontsize(20)
 #Message(turtle, "finished")
 finish()
+
+
+using Pkg
+Pkg.add("Luxor")
+Pkg.add("Color")
