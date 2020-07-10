@@ -6,11 +6,11 @@ Monday was the first day of my research project. The aim of the project is to us
 
 First of all I was introduced to GitHub, a software sharing and development website, which I will be using throughout the project to share and store code and useful research materials.
 
-**Very nice and to the point.  A hyperlink to github page could be useful here for readers who would like more details**
+**Very nice and to the point.  A hyperlink to github page could be useful here for readers who would like more details.**
 
 I was also introduced to Atom, an extremely useful text editor in which I can write, test, store and compare code. I also learned how to write with markdown, which I can use to write text and comments onto the GitHub repository.
 
-**Great, again links for Atom.  You should probably mention Juno which makes the connection between Atom and Julia.  Maybe a screenshot showing a text panel, the REPL and plot output would show this off nicely?**
+**Great, again links for Atom.  You should probably mention Juno which makes the connection between Atom and Julia.  Maybe a screenshot showing a text panel, the REPL and plot output would show this off nicely?  Also, you could link to the markdown cheat sheet you've been using for your own reference.**
 
 ## Tuesday
 On Tuesday I began properly learning Julia. I learned how to set variables, create arrays which are groups of variables and manipulate these arrays with various methods. I also learned about dictionaries, which can be used to group objects and numbers and assign information to them, and iterative loops which can perform multiple tasks in a row without having to manually type out commands for each task. Finally I learned about functions which can repeat an argument with different inputs.
