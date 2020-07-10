@@ -67,3 +67,24 @@ function draw(w,t)
     #Message(turtle, "finished")
     finish()
 end
+
+
+
+using Luxor, Colors
+Drawing(6000,4000,"turtletest.png")
+origin()
+background("midnightblue")
+
+turtle = Turtle()
+Pencolor(turtle, "red")
+Penwidth(turtle, 4)
+n = 5
+for i in 1:50
+    global n
+    Forward(turtle, n)
+    HueShift(turtle)
+    n += 5
+end
+fontsize(20)
+#Message(turtle, "finished")
+finish()
