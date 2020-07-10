@@ -2,7 +2,6 @@ function logistic(r,x)
     r*x*(1.0-x)
 end
 
-
 x0 = 0.2
 r = 3.7
 results = [(x0,logistic(r,x0))];
@@ -31,22 +30,6 @@ function logisticmap(x0,r)
       print(results)
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
