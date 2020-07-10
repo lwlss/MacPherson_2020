@@ -48,24 +48,22 @@ finish()
 
 using Luxor, Colors
 function draw(w,t)
-    Drawing(6000,4000,"turtlethree.png")
-    origin()
-    background("orange")
-
-    turtle = Turtle()
-    Pencolor(turtle, "blue")
-    Penwidth(turtle, w)
-    n = 5
-    for i in 1:8000
-        global n
-        Forward(turtle, n)
-        Turn(turtle, t)
-        HueShift(turtle)
-        n += 0.85
-    end
-    fontsize(20)
-    #Message(turtle, "finished")
-    finish()
+ Drawing(6000,4000,"turtlethree.png")
+ origin()
+ background("midnightblue")
+ turtle = Turtle()
+ Pencolor(turtle, "blue")
+ Penwidth(turtle, w)
+ n=5
+ for i in 1:8000
+  Forward(turtle, n)
+  Turn(turtle, t)
+  HueShift(turtle)
+  n += 0.85
+ end
+ fontsize(20)
+ #Message(turtle, "finished")
+ finish()
 end
 
 
