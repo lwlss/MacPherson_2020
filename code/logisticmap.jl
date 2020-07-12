@@ -27,6 +27,7 @@ function logisticmap(x0,r=4,n=10)
       append!(results,[(xold,xnew)])
       print(results)
   end
+  results
 end
 
 

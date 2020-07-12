@@ -1,5 +1,9 @@
+#using Pkg
+#Pkg.add("Luxor")
+#Pkg.add("Color")
+
 using Luxor, Colors
-Drawing(6000,4000,"turtle.png")
+Drawing(1000,1000,"turtle.png")
 origin()
 background("midnightblue")
 
@@ -17,8 +21,3 @@ end
 fontsize(20)
 #Message(turtle, "finished")
 finish()
-
-
-using Pkg
-Pkg.add("Luxor")
-Pkg.add("Color")

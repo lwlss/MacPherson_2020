@@ -1,5 +1,9 @@
+#using Pkg
+#Pkg.add("Luxor")
+#Pkg.add("Colors")
+
 using Luxor, Colors
-Drawing(6000,4000,"turtletwo.png")
+Drawing(1000,1000,"turtletwo.png")
 origin()
 background("midnightblue")
 
@@ -19,14 +23,7 @@ fontsize(20)
 finish()
 
 
-using Pkg
-Pkg.add("Luxor")
-Pkg.add("Colo
-
-
-
-using Luxor, Colors
-Drawing(6000,4000,"turtlethree.png")
+Drawing(1000,1000,"turtlethree.png")
 origin()
 background("orange")
 
@@ -45,10 +42,8 @@ fontsize(20)
 #Message(turtle, "finished")
 finish()
 
-
-using Luxor, Colors
 function draw(w,t)
- Drawing(6000,4000,"turtlethree.png")
+ Drawing(1000,1000,"turtlethree.png")
  origin()
  background("midnightblue")
  turtle = Turtle()
@@ -66,10 +61,10 @@ function draw(w,t)
  finish()
 end
 
+# Need to use the function now it's defined
+draw(2,33.333)
 
-
-using Luxor, Colors
-Drawing(6000,4000,"turtletest.png")
+Drawing(1000,1000,"turtletest.png")
 origin()
 background("midnightblue")
 
