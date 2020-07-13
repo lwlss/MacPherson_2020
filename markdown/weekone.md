@@ -98,7 +98,7 @@ wordcount("and")
 
 ## Wednesday
 
-On Wednesday I was given a presentation on the some of the many uses and benefits of the Julia programming language. One of the main advantages and unique aspects of Julia is its easy to learn syntax and its fast speed which makes it an ideal scientific programming language as when working with huge sets of data it is useful to have quick processing speeds. Compared with python which has an easy syntax but slower processing speed or C++ which has a fairly complex syntax but fast processing speed, Julia is clearly the best to use for scientific programming and was in fact designed exactly for this purpose.
+On Wednesday I was given a presentation on the some of the many uses and benefits of the Julia programming language. One of the main advantages and unique aspects of Julia is its easy to learn syntax and its [fast speed](http://mito.ncl.ac.uk/clonexp/speed_comparison/) which makes it an ideal scientific programming language as when working with huge sets of data it is useful to have quick processing speeds. Compared with python which has an easy syntax but slower processing speed or C++ which has a fairly complex syntax but fast processing speed, Julia is clearly the best to use for scientific programming and was in fact designed exactly for this purpose.
 
 I also learned some of the uses of Julia in a scientific context such as analysing images of cells or to simulate mutations in mtDNA and then graph the results, which is a big part of my project as well.
 
