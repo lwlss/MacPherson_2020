@@ -18,7 +18,7 @@ end
 
 print(results)
 
-function logisticmap(x0,r=4,n=10)
+function logisticmap(x0=0.2,r=4,n=10)
     results = [(x0,logistic(r,x0))];
     N = 100;
     for i in 1:(N-1)
@@ -47,13 +47,13 @@ end
 
 layout = layout(
     title = "Logistical Map"
-    xaxis_title="Iterations (n)"
-    yaxis_title="Value of x (xn+1)"
+    xaxis_title="Xn"
+    yaxis_title="Xn+1"
     font_family = "Arial",
     font_size = 12
 )
 
-plot(randomwalks,layout)
+plot()
 
 
 
@@ -80,11 +80,26 @@ layout = layout(
     font_size = 12
 )
 
-plot(labs,layout)
+plot()
 
 
 function logisticmaping()
-    logisticmap(0.2)
+    trace1 = scatter(;x=xold, y=xnew, mode="lines+markers")
+    plot([trace1])
+end
+
+function logisticmaping()
+    function logisticmap(x0=0.2,r=4,n=10)
+        results = [(x0,logistic(r,x0))];
+        N = 100;
+        for i in 1:(N-1)
+          xold = results[end][2]
+          xnew = logistic(r,xold)
+          append!(results,[(xold,xnew)])
+          print(results)
+      end
+      results
+    end
     trace1 = scatter(;x=xold, y=xnew, mode="lines+markers")
     plot([trace1])
 end
