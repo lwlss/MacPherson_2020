@@ -12,7 +12,7 @@ This is an example of what working in Atom looks like:
 ![Example](atom.png)
 
 ## Tuesday
-On Tuesday I began properly learning Julia. I learned how to set variables, create arrays which are groups of variables and manipulate these arrays with various methods. I also learned about dictionaries, which can be used to group objects and numbers and assign information to them, and iterative loops which can perform multiple tasks in a row without having to manually type out commands for each task. Finally I learned about functions which can repeat an argument with different inputs.
+On Tuesday I began properly learning Julia. I learned how to set variables, create arrays which are groups of variables and manipulate these arrays with various methods. I also learned about dictionaries, which can be used to group objects and numbers and assign information to them, and iterative loops which can perform multiple tasks in a row without having to manually type out commands for each task. Finally I learned about functions which can repeat a set of code which will perform the same task with different input arguments that I submit.
 
 ###### Variables
 
