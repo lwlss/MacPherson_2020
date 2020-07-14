@@ -89,13 +89,13 @@ end
 
 Which graphed some made up data in this form:
 
-![ScatterGraph5](scatter5.png)
+![ScatterGraph5](../images/scatter5.png)
 
 I then tried to input one of the previous functions that I had made, but must have mixed them with the above one (I think because they both use "trace1") so I ended up with something that I think looks correct, however it has been plotted with the y-axis from above:
 
 **I've just realised that this is just a more zoomed in version of the above graph without the paler dots**
 
-![Logisticmaptest](logisticmaptest.png)
+![Logisticmaptest](../images/logisticmaptest.png)
 
 I haven't however been able to reproduce this frustratingly. I initially thought that to plot it without the weird y and x-axes values I should restart Atom so as to clear the REPL but after I've done this I haven't been able to get any success with the functions I showed at the beginning e.g:
 
@@ -146,7 +146,7 @@ end
 ```
 it gives the error:
 
-![error](error.jpg)
+![error](../images/error.jpg)
 
 When I've gone back and defined xold as `xold = results[end][2]` it then says xnew isn't defined and then when I define that it plots a blank graph. I also think that by doing this it completely defeats the point of having the logisticmap function in there if I have to manually define x old and new. My idea/thought was to include the logisticmap function in the logisticmaping function so it would automatically generate a long series of coordinates that would then be plotted but it doesn't seem to be working regardless of if I include the logisticmap function within the logisticmaping function or define it beforehand.
 
