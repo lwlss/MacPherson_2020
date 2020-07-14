@@ -20,10 +20,21 @@ xvals = # What goes in here?
 yvals = # What goes in here?
 
 using PlotlyJS
-trace = scatter(;x=xvals, y=yvals, mode="lines")
+trace = scatter(;x=xvals, y=yvals, mode="markers")
 plot(trace)
 
 # How could you convert xvals and yvals into a list of instructions for a turtle?
 # You would need to move turtle to starting position (xvals[1],yvals[1])
 # Then get turtle to start drawing (pen down) and move to next position (xvals[2],yvals[2])
 # Then continue until the end of xvals and yvals
+
+xvals = []
+yvals = []
+
+for (x, y) in simres
+    append!(xvals, x)
+    append!(yvals, y)
+end
+
+xvals
+yvals
