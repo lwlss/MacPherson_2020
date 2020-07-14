@@ -37,8 +37,20 @@ function cross(turtle)
     Forward(turtle, 5)
     Turn(turtle, 180)
     Forward(turtle, 10)
+    Turn(turtle, 180)
 end
 
+turtle = Turtle()
+Pencolor(turtle, "black")
+Penwidth(turtle, 1.5)
+Reposition(turtle, 100*simres[1][1], -100*simres[1][2])
+Pendown(turtle)
+for (x, y) in simres
+    Reposition(turtle, 100*x, -100*y)
+    #Pendown(turtle)
+    #cross(turtle)
+end
+finish()
 
 Drawing(1000,1000,"turtlegraph.png")
 origin()
@@ -48,7 +60,7 @@ turtle = Turtle()
 Pencolor(turtle, "black")
 Penwidth(turtle, 1.5)
 for (x, y) in simres
-    Reposition(turtle, x, y)
+    Reposition(turtle, 250*x, -250*y)
     Pendown(turtle)
     cross(turtle)
 end

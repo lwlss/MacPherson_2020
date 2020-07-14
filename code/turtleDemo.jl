@@ -21,3 +21,18 @@ end
 fontsize(20)
 #Message(turtle, "finished")
 finish()
+
+using Luxor, Colors
+Drawing(1000,1000,"graph.png")
+origin()
+background("white")
+
+turtle = Turtle()
+Pencolour(turtle, "black")
+Penwidth(turtle, 2)
+Forward(turtle, 100)
+Reposition(t::turtle, 0,0)
+Turn(turtle, 90)
+Forward(turtle, 100)
+Reposition(t::turtle, 0,0)
+finish()
