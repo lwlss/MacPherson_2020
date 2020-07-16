@@ -23,15 +23,16 @@ end
  # mkdir("frames_r")
 #end
 function graphpngs(x0, delta_r, dname)
-    dictname=Dict()
-    dictname["dname"] = dname
-    if !isdir("dname")
-        mkdir("dname")
+    #dictname=Dict()
+    #dictname["dname"] = dname
+    if !isdir(dname)
+        mkdir(dname)
     end
     fno = 1
     global fno
     for r in 0:delta_r:5
-        fname = format("dname/frame{:05d}.png",fno)
+
+        fname = format("dname/frame{:05d}.png"),fno)
         fno = fno + 1
         simres = logisticmap(x0=x0, r=r, n=100)
         xvals = [x for (x, y) in simres]
