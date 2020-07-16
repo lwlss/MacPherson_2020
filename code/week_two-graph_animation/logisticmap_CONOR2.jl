@@ -86,7 +86,7 @@ end
 # To make a .gif from the .png files in the frames directory
 # Need to first install ffmpeg, add to system path, then navigate to frames directory in command line
 # and run ffmpeg like this:
-# ffmpeg -framerate 12 -i frame%05d.png output.gif
+# ffmpeg -i frame%05d.png -vf "fps=12,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop 0 output.gif
 
 #
 
