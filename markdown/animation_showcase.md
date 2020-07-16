@@ -48,15 +48,10 @@ For the first version of the gif I simply uploaded all of the png files I had on
 
 ![Varying x0](../code/week_two-graph_animation/logistic_map_x0.gif)
 
-**Note that the frame rate is too fast here**
-
 For the second version I managed to get ffmpeg working and when it came out it looked almost exactly the same (unsurprisingly) but I think the colours are a little different. You can find it [here](https://github.com/lwlss/MacPherson_2020/blob/master/frames/output.gif).
 
-![ffmpeg version](../frames/output.gif)
-
-**Try this:**
-```ffmpeg -framerate 12 -i frame%05d.png output.gif```
+![ffmpeg version](../code/frames/output.gif)
 
 I didn't manage to get ffmpeg working with the r variation so I just did it with the website. I think this looks really cool and it looks exactly like the example on the Wikipedia page as well. You can find it [here](https://github.com/lwlss/MacPherson_2020/blob/master/code/week_two-graph_animation/logistic_map_r.gif).
 
-![Varying x0](../code/logistic_map_r.gif)
+![Varying x0](../code/week_two-graph_animation/logistic_map_r.gif)

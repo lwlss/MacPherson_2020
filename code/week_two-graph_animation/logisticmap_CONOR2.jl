@@ -31,8 +31,7 @@ function graphpngs(x0, delta_r, dname)
     fno = 1
     global fno
     for r in 0:delta_r:5
-
-        fname = format("dname/frame{:05d}.png"),fno)
+        fname = format(dname*"/frame{:05d}.png",fno)
         fno = fno + 1
         simres = logisticmap(x0=x0, r=r, n=100)
         xvals = [x for (x, y) in simres]
@@ -88,6 +87,8 @@ end
 # Need to first install ffmpeg, add to system path, then navigate to frames directory in command line
 # and run ffmpeg like this:
 # ffmpeg -framerate 12 -i frame%05d.png output.gif
+
+#
 
 
 #xvals = []
