@@ -166,3 +166,88 @@ function graphpngs(delta_x0, r, dname)
     end
 end
 ```
+
+## Friday
+
+On Friday my task for the day was to create a function that generates PNG files that vary `r` or `x0` depending on input arguments. To do this I defined two functions each varying either `r` or `x0` and then another function which when given the input argument of `v` would execute one of the functions:
+
+```julia
+function varyx0(delta_x0, r, dname)
+    if !isdir(dname)
+        mkdir(dname)
+    end
+    fno = 1
+    global fno
+    for x0 in 0:delta_x0:1
+        fname = format(dname*"/frame{:05d}.png",fno)
+        fno = fno + 1
+        simres = logisticmap(x0=x0, r=r, n=100)
+        xvals = [x for (x, y) in simres]
+        yvals = [y for (x, y) in simres]
+        plot(xvals,yvals,legend=false,xaxis=false,yaxis=false,xlim=(0,1),ylim=(0,1));
+        savefig(fname)
+    end
+end
+
+function varyr(x0, delta_r, dname)
+     if !isdir(dname)
+         mkdir(dname)
+     end
+     fno = 1
+     global fno
+     for r in 0:delta_r:5
+         fname = format(dname*"/frame{:05d}.png",fno)
+         fno = fno + 1
+         simres = logisticmap(x0=x0, r=r, n=100)
+         xvals = [x for (x, y) in simres]
+         yvals = [y for (x, y) in simres]
+         plot(xvals,yvals,legend=false,xaxis=false,yaxis=false,xlim=(0,1),ylim=(0,1));
+         savefig(fname)
+     end
+end
+
+function varyxr(x0, r, dname, v)
+    if v==1
+        varyx0(x0, r, dname)
+    elseif v==2
+        varyr(x0, r, dname)
+    else
+        println("To vary x0 set v to 1, to vary r set v to 2")
+    end
+end
+```
+
+Then, using the function `varyxr` I generated six different GIFs, half for the varying `r` and half for varying `x0`.
+
+#### Varying `x0`
+
+###### `x0` = 0.02
+
+![vary_x0_0.2](../../code/week_two-graph_animation/varying x and r/vary_x0_0.2/output.gif)
+
+###### `x0` = 0.5
+
+![vary_x0_0.5](../../code/week_two-graph_animation/varying x and r/vary_x0_0.5/output.gif)
+
+###### `x0` = 0.85
+
+![vary_x0_0.85](../../code/week_two-graph_animation/varying x and r/vary_x0_0.85/output.gif)
+
+#### Varying `r`
+
+###### `r` = 3
+
+![vary_r_3](../../code/week_two-graph_animation/varying x and r/vary_r_3/output.gif)
+
+###### `r` = 4
+
+![vary_r_4](../../code/week_two-graph_animation/varying x and r/vary_r_4/output.gif)
+
+###### `r` = 5
+
+![vary_r_5](../../code/week_two-graph_animation/varying x and r/vary_r_5/output.gif)
+
+
+
+
+Then I spent the rest of the day writing this report. 
