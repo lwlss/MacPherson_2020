@@ -52,7 +52,7 @@ for (x, y) in simres
 end
 finish()
 
-Drawing(1000,1000,"turtlegraph.png")
+Drawing(500,500,"turtlegraph2.png")
 origin()
 background("white")
 
