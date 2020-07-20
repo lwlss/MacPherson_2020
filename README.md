@@ -8,7 +8,7 @@
 
 ### Weekly Progress Reports:
 
-#### [Week One Report](https://github.com/lwlss/MacPherson_2020/blob/master/markdown/weekone.md)
+#### [Week One Report](https://github.com/lwlss/MacPherson_2020/blob/master/markdown/week_review/week1.md)
 
 ![Week1](images/turtle.png)
 
