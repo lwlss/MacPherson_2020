@@ -10,8 +10,8 @@
 
 #### [Week One Report](https://github.com/lwlss/MacPherson_2020/blob/master/markdown/week_review/week1.md)
 
-![Week1](images/turtle.png)
+![Week1](Images/turtle.png)
 
 #### [Week Two Report](https://github.com/lwlss/MacPherson_2020/blob/master/markdown/week_review/week2.md)
 
-![Week2](images/logisticmapgraph.png)
+![Week2](logisticmapgraph.png)

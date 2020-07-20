@@ -9,7 +9,7 @@ I was also introduced to [Atom](https://atom.io/), an extremely useful text edit
 
 This is an example of what working in Atom looks like:
 
-![Example](../../images/atom.png)
+![Example](../../Images/atom.png)
 
 ## Tuesday
 On Tuesday I began properly learning Julia. I learned how to set variables, create arrays which are groups of variables and manipulate these arrays with various methods. I also learned about dictionaries, which can be used to group objects and numbers and assign information to them, and iterative loops which can perform multiple tasks in a row without having to manually type out commands for each task. Finally I learned about functions which can repeat a set of code which will perform the same task with different input arguments that I submit.
@@ -136,14 +136,14 @@ My next task/aim is to map the outputs from this function on a graph to see how 
 I also installed the [Luxor package](http://juliagraphics.github.io/Luxor.jl/v0.8.3/index.html) with which you can code graphics on Julia such as nice patterns, shapes and graphs. I was given a [piece of code](https://github.com/lwlss/MacPherson_2020/blob/master/code/turtleDemo.jl) which when executed would draw this picture:
 
 
-![TurtleDemoOne](../../images/turtle.png)
+![TurtleDemoOne](../../Images/turtle.png)
 
 
 I changed some values of the code, including pen width, turn angle and background colour to make the following two images:
 
-![TurtleDemoTwo](../../images/turtletwo.png)
+![TurtleDemoTwo](../../Images/turtletwo.png)
 
-![TurtleDemoThree](../../images/turtlethree.png)
+![TurtleDemoThree](../../Images/turtlethree.png)
 
 I also tried to make a function which for different input values would draw a different image each time:
 ```julia
