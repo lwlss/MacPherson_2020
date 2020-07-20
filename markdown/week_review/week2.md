@@ -43,7 +43,7 @@ plot(trace)
 
 This then output this graph:
 
-![Logistic Map Graph](../../images/logisticmapgraph.png)
+![Logistic Map Graph](../../logisticmapgraph.png)
 
 I also managed to get a very similar plot drawn with [Turtle](http://juliagraphics.github.io/Luxor.jl/v0.8.3/turtle.html). I made a function which would draw cross at each coordinate and then used the following code to create the following image:
 
