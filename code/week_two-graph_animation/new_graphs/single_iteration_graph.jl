@@ -16,26 +16,36 @@ function logisticmap(;x0=0.2,r=4,n=10)
   results
 end
 
-xvals = [x for (x, y) in simres]
-yvals = [y for (x, y) in simres]
-
-function vary(dname;x0_vals=[],r_vals=[])
+function vary(dname;x0_vals=[],r_vals=[], nvals=[])
  if !isdir(dname)
   mkdir(dname)
  end
  fno = 1
  for x0 in x0_vals
   for r in r_vals
-   fname = format(dname*"/frame{:05d}.png",fno)
-   fno = fno + 1
-   simres = logisticmap(x0=x0, r=r, n=100)
-   xvals = [x for (x, y) in simres]
-   yvals = [y for (x, y) in simres]
-   plot(xvals,yvals,legend=false,xaxis=false,yaxis=false,xlim=(0,1),ylim=(0,1));
-   savefig(fname)
-  end
- end
+      for n in nvals
+          fname = format(dname*"/frame{:05d}.png",fno)
+          fno = fno + 1
+          simres = logisticmap(x0=x0, r=r, n=n)
+          xvals = [x for (x, y) in simres]
+          yvals = [y for (x, y) in simres]
+          plot(xvals,yvals,legend=false,xaxis=false,yaxis=false,xlim=(0,1),ylim=(0,1));
+          savefig(fname)
+        end
+    end
+end
 end
 
 
 # name/number each iteration then plot 1, 1+2, 1+2+3 ...
+
+
+# To make frames varying r, specify x0_vals as an array with a single value
+# along with whatever values of r you want to loop through
+vary("frames_r";x0_vals=[0.5],r_vals=0:0.1:5, n=[100])
+
+# To make frames varying x0, specify r_vals as an array with a single value
+# along with whatever values of x0 you want to loop through
+vary("frames_x0";x0_vals=0:0.05:1,r_vals=[4.0], n=[100])
+
+vary("frames_n";x0_vals=[0.5],r_vals=[3], nvals = 1:100)
