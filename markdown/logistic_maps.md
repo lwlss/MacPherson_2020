@@ -18,4 +18,16 @@ When iterating whilst varying `x0` it produces the following images:
 
 As you can see towards the end it displays chaotic behaviour and this is one of the first ways used to generate random numbers on deterministic machines like computers. Although appearing to be random, if given the exact input values the exact same output could be achieved therefore making it only pseudo-random. This is an example of deterministic chaos. As `r` increases between 0 and 5 in this example it shows to behave chaotically towards the end at values of 3-5.
 
+The chaotic and unpredictable nature of this function can be seen most clearly in the following example:
+
+![Double Plot](../images/double_lines.png)
+
+In this example two different values of `x0` were plotted with the same value of `r` and the same number of iterations, however, with only a 0.1 difference in `x0` values the graph displays a large difference between the `x0` value of 0.2 in blue and the `x0` value of 0.3 in orange.
+
+The differences and also similarities can perhaps be seen better here:
+
+![Double Markers](../images/double_markers.png)
+
+Although the orange markers seem to be in different places from the blue ones, they still plot in the same shape, showing clearly that although at first it may appear random, they follow the constraints of the function and therefore are only pseudo random.
+
 An informative video that touches on the logistic map function and also the bifurcation diagram can be found [here](https://www.youtube.com/watch?v=ovJcsL7vyrk).
