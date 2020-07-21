@@ -31,12 +31,3 @@ The differences and also similarities can perhaps be seen better here:
 Although the orange markers seem to be in different places from the blue ones, they still plot in the same shape, showing clearly that although at first it may appear random, they follow the constraints of the function and therefore are only pseudo random.
 
 An informative video that touches on the logistic map function and also the bifurcation diagram can be found [here](https://www.youtube.com/watch?v=ovJcsL7vyrk).
-
-<iframe width="1280" height="545" src="https://www.youtube.com/embed/ovJcsL7vyrk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-
-<!-- blank line -->
-<figure class="video_container">
-  <iframe src="https://www.youtube.com/embed/ovJcsL7vyrk" frameborder="0" allowfullscreen="true"> </iframe>
-</figure>
-<!-- blank line -->
