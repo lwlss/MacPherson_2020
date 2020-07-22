@@ -11,7 +11,7 @@ using Plots; gr()
 plot(sol)
 
 plot(sol,linewidth=5,title="Solution to the linear ODE with a thick line",
-     xaxis="Time (t)",yaxis="u(t) (in μm)",label="Thick Line")
+     xaxis="Time (t)",yaxis="u(t) (in μm)",label="Line")
 
 plot!(sol.t,t->0.5*exp(1.01t),lw=3,ls=:dash,label="True Solution")
 
