@@ -48,4 +48,4 @@ vary("frames_r";x0_vals=[0.5],r_vals=0:0.1:5, n=[100])
 # along with whatever values of x0 you want to loop through
 vary("frames_x0";x0_vals=0:0.05:1,r_vals=[4.0], n=[100])
 
-vary("frames_n";x0_vals=[0.5],r_vals=[3], nvals = 1:100)
+vary("frames_n";x0_vals=[0.2],r_vals=[4], nvals = 1:500)
