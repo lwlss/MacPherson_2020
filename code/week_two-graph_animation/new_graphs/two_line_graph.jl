@@ -25,8 +25,9 @@ yvals = [y for (x, y) in simres]
 xvals2 = [x for (x, y) in simres2]
 yvals2 = [y for (x, y) in simres2]
 
-trace = scatter(;x=xvals, y=yvals, mode="markers")
 
-trace2 = scatter(;x=xvals2, y=yvals2, mode="markers")
+trace = scatter(;x=xvals, y=yvals, mode="lines", name = "x0=0.2")
+
+trace2 = scatter(;x=xvals2, y=yvals2, mode="lines", name = "x0=0.3")
 
 plot([ trace, trace2])
