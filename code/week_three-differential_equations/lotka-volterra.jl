@@ -6,7 +6,7 @@ function f(du,u,p,t)
     du[2] = (p[2]*u[1]*u[2]) - (p[3]*u[2])
 end
 u0 = [10.0;4.0]
-p = [5.0;0.1;1.0]
+p = [2.0;0.5;0.6]
 tspan = (0.0, 100.0)
 prob = ODEProblem(f,u0,tspan,p)
 
@@ -15,7 +15,7 @@ sol = solve(prob,reltol=1e-7,abstol=1e-7)
 plot(sol)
 
 plot(sol,linewidth=5,title="Lotka-Volterra System/Predator Prey Dynamics",
-     xaxis="Time (years)",yaxis="Population size",label=["Prey" "Predator"], legend =:bottomright)
+     xaxis="Time (years)",yaxis="Population size",label=["Prey" "Predator"], legend =:topright)
 
 u1 = [u[1] for u in sol.u];
 u2 = [u[2] for u in sol.u]
