@@ -17,11 +17,6 @@ function logisticmap(;x0=0.21,r=4,n=10)
   results
 end
 
-if !isdir("framesxl")
-    mkdir("framesxl")
-end
-fno = 1
-
 function vary(dname;x0_vals=[],r_vals=[])
  if !isdir(dname)
   mkdir(dname)
@@ -44,6 +39,7 @@ end
 # along with whatever values of r you want to loop through
 vary("frames_r";x0_vals=[0.5],r_vals=0:0.1:5)
 
+vary("loop";x0_vals=[(r-1)/r],r_vals=[4])
 # To make frames varying x0, specify r_vals as an array with a single value
 # along with whatever values of x0 you want to loop through
 vary("frames_x0";x0_vals=0:0.05:1,r_vals=[4.0])
