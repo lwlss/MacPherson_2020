@@ -14,4 +14,8 @@
 
 #### [Week Two Report](https://github.com/lwlss/MacPherson_2020/blob/master/markdown/week_review/week2.md)
 
-![Week2](logisticmapgraph.png)
+![Week2](images/turtlegraph2.png)
+
+#### [Week Three Report](https://github.com/lwlss/MacPherson_2020/blob/master/markdown/week_review/week3.md)
+
+![Week3](images/lotka_volterra.png)
