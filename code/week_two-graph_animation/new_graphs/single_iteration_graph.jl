@@ -49,3 +49,8 @@ vary("frames_r";x0_vals=[0.5],r_vals=0:0.1:5, n=[100])
 vary("frames_x0";x0_vals=0:0.05:1,r_vals=[4.0], n=[100])
 
 vary("frames_n";x0_vals=[0.2],r_vals=[4], nvals = 1:500)
+
+r_vals = 9
+vary("loop1";x0_vals=[(r_vals+sqrt(r_vals-4)*sqrt(r_vals))/(2*r_vals)],r_vals=[4], nvals=[100])
+
+vary("loop2";x0_vals=[(r_vals-sqrt(r_vals-4)*sqrt(r_vals))/(2*r_vals)],r_vals=[4], nvals=[100])
