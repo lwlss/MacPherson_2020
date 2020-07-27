@@ -1,44 +1,5 @@
+using Plots
 using DifferentialEquations
-using Plots; gr()
-
-function f(du,u,p,t)
-    du[1] = (p[1]*u[1]) - (p[2]*u[1]*u[2])
-    du[2] = (p[2]*u[1]*u[2]) - (p[3]*u[2])
-end
-u0 = [10.0;4.0]
-p = [2.0;0.5;0.6]
-tspan = (0.0, 100.0)
-prob = ODEProblem(f,u0,tspan,p)
-
-sol = solve(prob,reltol=1e-7,abstol=1e-7)
-
-plot(sol)
-
-plot(sol,linewidth=5,title="Lotka-Volterra System/Predator Prey Dynamics",
-     xaxis="Time (years)",yaxis="Population size",label=["Prey" "Predator"], legend =:topright)
-
-u1 = [u[1] for u in sol.u];
-u2 = [u[2] for u in sol.u]
-
-function f(du,u,p,t)
-    du[1] = (p[1]*u[1]) - (p[2]*u[1]*u[2])
-    du[2] = (p[2]*u[1]*u[2]) - (p[3]*u[2])
-end
-u0 = [10.0;5.0]
-p = [1.0;0.1;0.1]
-tspan = (0.0, 100.0)
-prob = ODEProblem(f,u0,tspan,p)
-
-sol = solve(prob,reltol=1e-7,abstol=1e-7)
-
-plots = plot(sol, linewidth=2, title="Predator Prey Dynamics",
-     xaxis="Time (years)",yaxis="Population size",label=["Prey" "Predator"], legend =:bottomright)
-
-[plots[1] plots[2] plot(sol)]
-
-
-using PlotlyJS
-using Distributions
 
 labs = ["Prey", "Predator"];
 function f(du,u,p,t)
@@ -46,21 +7,24 @@ function f(du,u,p,t)
     du[2] = (p[2]*u[1]*u[2]) - (p[3]*u[2])
 end
 u0 = [10.0;4.0]
-p = [5.0;0.1;1.0]
-tspan = (0.0, 100.0)
+p = [0.1;0.01;0.01]
+tspan = (0.0, 1000.0)
 prob = ODEProblem(f,u0,tspan,p)
 
-layout = Layout(
-title = "Predator Prey Dynamics",
-xaxis_title="time (months)",
-yaxis_title="Populations Size",
-font_family = "Arial",
-font_size = 14
-)
+# You need to solve the problem.  i.e. you need to run the simulation:
+res = solve(prob, reltol=1e-14,abstol=1e-14)
 
-layout["title"]=""
-plots = [plot(prob[i],layout) for i in 1:length(labs)];
-[plots[1] plots[2] plot()]
+# Then you need to get the simulated values in a nice format for plotting
+t = res.t
+prey = [values[1] for values in res.u]
+pred = [values[2] for values in res.u]
 
+# Plot the dynamics as usual
+p1 = plot(t,prey, label="Prey")
+plot!(t,pred, title="Predator Prey Dynamics", yaxis="Population Size", xaxis="Time (Years)", label="Predator",legend=:topright)
 
-# plot(prob, layout)
+# Plot the phase-space diagram
+p2 = plot(pred,prey, title="Phase Space Diagram", yaxis="Prey Population", xaxis="Predator Population", label="Possible States",legend=:topright)
+
+# Combine the two plots side by side
+plot(p1,p2,layout=(1,2),linewidth=3 )

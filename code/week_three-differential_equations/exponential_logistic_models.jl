@@ -23,12 +23,11 @@ f(u,p,t) = p[1]*u*(1-(u/p[2]))
 #f(u,p,t) = p[1]*u*(1-u)
 u0 = 0.1
 #params = [5.0,1.0]
-p = [5.0,1.0]
+p = [0.001,1.0]
 tspan = (0.0, 10.0)
 #prob2 = ODEProblem(f, u0, tspan, params)
 prob2 = ODEProblem(f, u0, tspan, p)
 sol2 = solve(prob2,reltol=1e-8,abstol=1e-8)
-
 plot(sol2)
 
 plot(sol2,linewidth=5,title="Logistic Growth",

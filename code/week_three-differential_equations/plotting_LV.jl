@@ -7,8 +7,8 @@ function f(du,u,p,t)
     du[2] = (p[2]*u[1]*u[2]) - (p[3]*u[2])
 end
 u0 = [10.0;4.0]
-p = [5.0;0.1;1.0]
-tspan = (0.0, 100.0)
+p = [0.5;0.05;0.05]
+tspan = (0.0, 500.0)
 prob = ODEProblem(f,u0,tspan,p)
 
 # You need to solve the problem.  i.e. you need to run the simulation:
@@ -27,4 +27,4 @@ plot!(t,prey)
 p2 = plot(pred,prey)
 
 # Combine the two plots side by side
-plot(p1,p2,layout=(1,2),legend=false)
+plot(p1,p2,layout=(1,2),legend=false,linewidth=3 )
