@@ -50,7 +50,9 @@ vary("frames_x0";x0_vals=0:0.05:1,r_vals=[4.0], n=[100])
 
 vary("frames_n";x0_vals=[0.2],r_vals=[4], nvals = 1:500)
 
-r_vals = 9
-vary("loop1";x0_vals=[(r_vals+sqrt(r_vals-4)*sqrt(r_vals))/(2*r_vals)],r_vals=[4], nvals=[100])
+r_vals = 4.1
+vary("loop1";x0_vals=[(r_vals+sqrt(r_vals-4)*sqrt(r_vals))/(2*r_vals)],r_vals=[4], nvals=1:100)
 
-vary("loop2";x0_vals=[(r_vals-sqrt(r_vals-4)*sqrt(r_vals))/(2*r_vals)],r_vals=[4], nvals=[100])
+vary("loop2";x0_vals=[(r_vals-sqrt(r_vals-4)*sqrt(r_vals))/(2*r_vals)],r_vals=[4], nvals=1:10)
+
+ffmpeg -i frame%05d.png -vf "fps=12,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop 0 output.gif
