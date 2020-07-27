@@ -87,7 +87,7 @@ plot!(sol.t,t->u0*exp(p[1]t),lw=3,ls=:dash,label="True Solution")
 
 This code plotted this exponential graph:
 
-![exponential growth graph](../../images/exponential_growth.png)
+![exponential growth graph](../../images/exponential_growth.PNG)
 
 Then I wrote the code to solve the logistic growth equation:
 
@@ -195,7 +195,11 @@ Then, when plotted in state space it produces the following image:
 
 ![lorenz_attractor](../../images/lorenz_attractor.png)
 
+I also watched this helpful and interesting video which talks about the Lorenz Attractor and it's origins:
 
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=fDek6cYijxI
+" target="_blank"><img src="http://img.youtube.com/vi/fDek6cYijxI/0.jpg"
+alt="Logistic Map Video" width="480" height="360" border="10" /></a>
 
 ## Deterministic and Stochastic Models
 
