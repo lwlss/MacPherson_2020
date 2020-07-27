@@ -51,7 +51,7 @@ vary("frames_x0";x0_vals=0:0.05:1,r_vals=[4.0], n=[100])
 vary("frames_n";x0_vals=[0.2],r_vals=[4], nvals = 1:500)
 
 r_vals = 4.1
-vary("loop1";x0_vals=[(r_vals+sqrt(r_vals-4)*sqrt(r_vals))/(2*r_vals)],r_vals=[4], nvals=1:100)
+vary("loop3";x0_vals=[(r_vals+sqrt(r_vals-4)*sqrt(r_vals))/(2*r_vals)],r_vals=[4], nvals=1:10)
 
 vary("loop2";x0_vals=[(r_vals-sqrt(r_vals-4)*sqrt(r_vals))/(2*r_vals)],r_vals=[4], nvals=1:10)
 
