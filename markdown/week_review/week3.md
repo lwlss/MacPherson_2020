@@ -41,7 +41,7 @@ Using the website [Wolfram Alpha](https://www.wolframalpha.com/) I managed to so
 By inputting these values into the above code for the values of X, I managed to get a sequence of 10 images which showed a loop of squares, which was what I was expecting:
 
 ```julia
-r = 4.1
+r = 4.6
 x = (r+sqrt(r-4)*sqrt(r))/(2*r)
 vary("loop3";x0_vals=[x] ,r_vals=[r], nvals=1:10)
 ```

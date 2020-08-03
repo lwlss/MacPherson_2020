@@ -21,9 +21,9 @@ plot!(sol.t,t->u0*exp(p[1]t),lw=3,ls=:dash,label="True Solution", legend =:botto
 
 f(u,p,t) = p[1]*u*(1-(u/p[2]))
 #f(u,p,t) = p[1]*u*(1-u)
-u0 = 0.1
+u0 = 1.0
 #params = [5.0,1.0]
-p = [0.8,1.0]
+p = [0.4,1.1]
 tspan = (0.0, 10.0)
 #prob2 = ODEProblem(f, u0, tspan, params)
 prob2 = ODEProblem(f, u0, tspan, p)
