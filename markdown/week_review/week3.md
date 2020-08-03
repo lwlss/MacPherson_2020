@@ -4,7 +4,7 @@
 
 ## Difference Equations
 
-### Vary Function Update
+### Plotting and Animating Simulated Results from Logistic Map Function
 
 I expanded on last week's work on vary the input values for the logistic map using the `vary` function. I added to the code to allow me to vary the value of `n`. Doing this allows you to see clearly how the logistic map is "drawn", shows how it is "built up" with each iteration and shows the chaotic nature of it. Here is the adjusted code and GIF animation it produced:
 
@@ -32,17 +32,18 @@ end
 
 ![Vary_N](../../code/week_two-graph_animation/frames_n/output.gif)
 
-## Xn+2 = 2
+## X<sub>n+2</sub> = X<sub>n</sub>
 
-Using the website [Wolfram Alpha](https://www.wolframalpha.com/) I managed to solve the equation Xn+2=2 for Xn. The values of Xn I was returned were:
+Using the website [Wolfram Alpha](https://www.wolframalpha.com/) I managed to solve the equation   X<sub>n+2</sub> = X<sub>n</sub> for X<sub>n</sub> . The values of Xn I was returned were:
 
 ![Xvals](../../images/xn2_solution.png)
 
-By inputting these values into the above code for the values of X I managed to get a sequence of 10 images which showed a loop of squares, which was what I was expecting:
+By inputting these values into the above code for the values of X, I managed to get a sequence of 10 images which showed a loop of squares, which was what I was expecting:
 
 ```julia
-r_vals = 4.1
-vary("loop3";x0_vals=[(r_vals+sqrt(r_vals-4)*sqrt(r_vals))/(2*r_vals)],r_vals=[4], nvals=1:10)
+r = 4.1
+x = (r+sqrt(r-4)*sqrt(r))/(2*r)
+vary("loop3";x0_vals=[x] ,r_vals=[r], nvals=1:10)
 ```
 
 ![xn2](../../loop3/output.gif)

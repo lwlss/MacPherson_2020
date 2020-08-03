@@ -71,17 +71,4 @@ plot!(t,u3, xaxis=false, yaxis=false, legend=false)
 plot(u1,u2, xaxis=false, yaxis=false, legend=false)
 plot(u1,u3, xaxis=false, yaxis=false, legend=false)
 
-# You need to solve the problem.  i.e. you need to run the simulation:
-
-# Then you need to get the simulated values in a nice format for plotting
-
-
-# Plot the dynamics as usual
-#p1 = plot(t,pred)
-#plot!(t,prey)
-
-# Plot the phase-space diagram
-#p2 = plot(pred,prey)
-
-# Combine the two plots side by side
 plot(sollor,plotlz,layout=(1,2),legend=false,linewidth=3 )
