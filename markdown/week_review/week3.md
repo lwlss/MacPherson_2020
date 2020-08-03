@@ -68,44 +68,55 @@ Firstly I wrote the code to solve the exponential growth equation:
 using DifferentialEquations
 using Plots; gr()
 
-f(u,p,t) = p[1]*u
-u0 = 0.5
-#params = [3.0]
-p = [3.0]
+f(u,p,t) = p[1]*u   # Here the ODE itself is written. p[1] representing r and u representing N
+u0 = 0.5            # Defining u0
+p = [3.0]           # Defining p[1]
 tspan = (0.0,1.0)
 prob = ODEProblem(f,u0,tspan,params)
-
 sol = solve(prob,reltol=1e-7,abstol=1e-7)
-
-plot(sol)
 
 plot(sol,linewidth=5,title="Solution to the linear ODE with a thick line",
      xaxis="Time (d)",yaxis="Population size",label="Numerical solution")
+```
+The analytical solution can be found the following way:
 
+![expsol](../../images/expanalyticalsol.png)
+
+I then added the analytical solution or "true line" to the graph with the following code:
+
+```julia
 plot!(sol.t,t->u0*exp(p[1]t),lw=3,ls=:dash,label="True Solution")
 ```
 
-This code plotted this exponential graph:
+When all of the above code is run together it plots this exponential graph:
 
 ![exponential growth graph](../../images/exponential_growth.PNG)
 
 Then I wrote the code to solve the logistic growth equation:
 
 ```julia
-f(u,p,t) = p[1]*u*(1-(u/p[2]))
-u0 = 0.1
-p = [5.0,1.0]
+f(u,p,t) = p[1]*u*(1-(u/p[2]))   # This is where the logistic growth ODE is written.
+u0 = 0.1                         # p[1] representing r, u representing N and p[2] representing K.
+p = [5.0,1.0]       # Here is an array in which both p[1] and p[2] are defined as elements of it.
 tspan = (0.0, 10.0)
 prob2 = ODEProblem(f, u0, tspan, p)
 sol2 = solve(prob2,reltol=1e-8,abstol=1e-8)
 
 plot(sol2,linewidth=5,title="Logistic ODE Graph",
      xaxis="Time (s)",yaxis="Population size",label="Numerical Solution", legend=:bottomright)
+```
 
+The analytical solution can be found to be:
+
+![logsol](../../images/loganalyticalsol.png)
+
+This can be written into Julia with the following code:
+
+```julia
 plot!(sol2.t,t->((p[2])*(u0*exp(p[1]t)))/(p[2]+(u0*(exp(p[1]t)-1))),lw=3,ls=:dash,label="True Solution")
 ```
 
-This code plotted this logistic graph:
+Then when the above code is plotted it outputs this logistic graph:
 
 ![logistic growth graph](../../images/logistic_growth.png)
 
