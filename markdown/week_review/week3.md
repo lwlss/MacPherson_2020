@@ -32,6 +32,21 @@ end
 
 ![Vary_N](../../code/week_two-graph_animation/frames_n/output.gif)
 
+## Xn+2 = 2
+
+Using the website [Wolfram Alpha](https://www.wolframalpha.com/) I managed to solve the equation Xn+2=2 for Xn. The values of Xn I was returned were:
+
+![Xvals](../../images/xn2_solution.png)
+
+By inputting these values into the above code for the values of X I managed to get a sequence of 10 images which showed a loop of squares, which was what I was expecting:
+
+```julia
+r_vals = 4.1
+vary("loop3";x0_vals=[(r_vals+sqrt(r_vals-4)*sqrt(r_vals))/(2*r_vals)],r_vals=[4], nvals=1:10)
+```
+
+![xn2](../../loop3/output.gif)
+
 ## Logistic Map Document
 
 I made a [markdown file](https://github.com/lwlss/MacPherson_2020/blob/master/markdown/logistic_maps.md) talking about the logistic map function. In which I managed to embed a YouTube video and alter code for the logistic map to show two different values of `x0` on the same graph which I think helps to visualise the chaotic but also deterministic qualities of the logistic map function.
@@ -148,6 +163,8 @@ plot(sol,linewidth=5,title="Lotka-Volterra System/Predator Prey Dynamics",
      xaxis="Time (years)",yaxis="Population size",label=["Prey" "Predator"], legend =:topright)
 ```
 
+Note: There is no analytical solution for the above ODEs
+
 The above code was adapted from the following ODE's from Wilkinson's book.
 
 !["LVEquations"](../../images/lveqs.png)
@@ -200,6 +217,9 @@ sollor = solve(prob,reltol=1e-14,abstol=1e-14)
 
 plot(sollor)
 ```
+
+Note: There are no analytical solutions for the above ODEs
+
 This produced the following plot:
 
 ![Lorenz_system](../../images/lorenz_system.png)
