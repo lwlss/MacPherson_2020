@@ -24,7 +24,7 @@ p1 = plot(t,prey, label="Prey")
 plot!(t,pred, title="Predator Prey Dynamics", yaxis="Population Size", xaxis="Time (Years)", label="Predator",legend=:topright)
 
 # Plot the phase-space diagram
-p2 = plot(pred,prey, title="Phase Space Diagram", yaxis="Prey Population", xaxis="Predator Population", label="Possible States",legend=:topright)
+p2 = plot(pred,prey, title="Phase Space Diagram", yaxis="Prey Population", xaxis="Predator Population", legend=false)
 
 # Combine the two plots side by side
 plot(p1,p2,layout=(1,2),linewidth=3 )

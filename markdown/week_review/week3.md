@@ -48,7 +48,9 @@ alt="Logistic Map Video" width="480" height="360" border="10" /></a>
 
 ## Ordinary Differential Equations
 
-### Exponential and Logistic Growth Equations
+### Biochemical Reaction Networks
+
+#### Exponential and Logistic Growth Equations
 
 I started looking at differential equations and how to solve them in Julia. Firstly I looked at [two types](https://lwlss.net/talks/MathModel.pdf) (pages 4 & 5) of differential equations: exponential and logistic growth equations. The exponential growth equation looks like this:
 
@@ -120,9 +122,9 @@ Then when the above code is plotted it outputs this logistic graph:
 
 ![logistic growth graph](../../images/logistic_growth.png)
 
-### Lotka-Volterra Predator-Prey Model
+#### Lotka-Volterra Predator-Prey Model
 
-The Lotka-Volterra Model is a biological model which models the relationship between predators and prey, using two differntial equations. I read about this in the textbook ["Stochastic Modelling for Systems Biology"](https://www.staff.ncl.ac.uk/d.j.wilkinson/smfsb/2e/) by Darren J. Wilkinson on page 40.
+The Lotka-Volterra Model is a biological model which models the relationship between predators and prey, using two differntial equations. I read about this in ["Wilkinson (2019)"](https://www.staff.ncl.ac.uk/d.j.wilkinson/smfsb/2e/) on page 40.
 
 
 I wrote the following code in Julia to model the relationship between predator and prey:
@@ -150,7 +152,7 @@ The above code was adapted from the following ODE's from Wilkinson's book.
 
 !["LVEquations"](../../images/lveqs.png)
 
-In these equations, `Y1` represents the prey and `Y2` represents the predators. `K1`, `K2` and `K3` are the input parameters and each represent a different aspect of the overall function. `K1` represents the growth - or reproduction - rate of the prey, `K2` the constant of proportionality and `K3` the negative growth - or death - rate of the predators.
+In these equations, `Y1` represents the prey and `Y2` represents the predators. `K1`, `K2` and `K3` are the input parameters and each represent a different aspect of the overall function. `K1` represents the growth - or reproduction - rate of the prey, `K2` the constant of proportionality and the rate of predation and `K3` the negative growth - or death - rate of the predators. In the first ODE the term `-k2[Y1][Y2]` represents predation or the death rate of prey due to predators.
 
 What we should expect to see is the populations of predator and prey oscillating.
 
@@ -169,7 +171,7 @@ The Lotka-Volterra model can also be graphed in [phase space](https://en.wikiped
 
 ![LV-Double](../../images/lv_double.png)
 
-You will notice that the phase space diagram has plotted a loop. This is because the model is repetitive and predictable, meaning that the predator and prey populations will only ever be the number that is prescribed in the phase space diagram.
+You will notice that the phase space diagram has plotted a loop. This is because the model is repetitive and predictable, meaning that the predator and prey populations will only ever be the number that is prescribed in the phase space diagram. This also means that the solution of the Lotka-Volterra model is an oscillation.
 
 ### Lorenz Attractor
 
