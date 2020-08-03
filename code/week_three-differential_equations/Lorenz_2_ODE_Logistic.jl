@@ -65,10 +65,11 @@ u1 = [s[1] for s in sollor.u];
 u2 = [s[2] for s in sollor.u];
 u3 = [s[3] for s in sollor.u];
 # Get the results
-plotlz=plot(t,u1, xaxis=false, yaxis=false, legend=false)
+plotlzsys=plot(t,u1, xaxis=false, yaxis=false, legend=false)
 plot!(t,u2, xaxis=false, yaxis=false, legend=false)
 plot!(t,u3, xaxis=false, yaxis=false, legend=false)
-plot(u1,u2, xaxis=false, yaxis=false, legend=false)
-plot(u1,u3, xaxis=false, yaxis=false, legend=false)
 
-plot(sollor,plotlz,layout=(1,2),legend=false,linewidth=3 )
+plotlz = plot(u1,u2, xaxis=false, yaxis=false, legend=false)
+#plot(u1,u3, xaxis=false, yaxis=false, legend=false)
+
+plot(plotlzsys,plotlz,layout=(1,2),legend=false,linewidth=3 )
