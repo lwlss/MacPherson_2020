@@ -37,6 +37,21 @@ The differences and also similarities can perhaps be seen better here:
 ![Double Markers](../images/double_markers.png)
 
 Although the orange markers seem to be in different places from the blue ones, they still plot in the same shape, showing clearly that although at first it may appear random, they follow the constraints of the function and therefore are only pseudo random.
+##### X<sub>n+2</sub> = X<sub>n</sub>
+
+Using the website [Wolfram Alpha](https://www.wolframalpha.com/) I managed to solve the equation   X<sub>n+2</sub> = X<sub>n</sub> for X<sub>n</sub> . The values of Xn I was returned were:
+
+![Xvals](/images/xn2_solution.png)
+
+By inputting these values into the above code for the values of X, I managed to get a sequence of 10 images which showed a loop of squares, which was what I was expecting:
+
+```julia
+r = 4.6
+x = (r+sqrt(r-4)*sqrt(r))/(2*r)
+vary("loop3";x0_vals=[x] ,r_vals=[r], nvals=1:10)
+```
+
+![xn2](/loop3/output.gif)
 
 An informative video that touches on the logistic map function and also the bifurcation diagram can be found here:
 

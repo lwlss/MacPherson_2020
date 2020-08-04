@@ -64,9 +64,7 @@ alt="Logistic Map Video" width="480" height="360" border="10" /></a>
 
 ## Ordinary Differential Equations
 
-### Biochemical Reaction Networks
-
-#### Exponential and Logistic Growth Equations
+### Exponential and Logistic Growth Equations
 
 I started looking at differential equations and how to solve them in Julia. Firstly I looked at [two types](https://lwlss.net/talks/MathModel.pdf) (pages 4 & 5) of differential equations: exponential and logistic growth equations. The exponential growth equation looks like this:
 
@@ -138,7 +136,7 @@ Then when the above code is plotted it outputs this logistic graph:
 
 ![logistic growth graph](../../images/logistic_growth.png)
 
-#### Lotka-Volterra Predator-Prey Model
+### Lotka-Volterra Predator-Prey Model
 
 The Lotka-Volterra Model is a biological model which models the relationship between predators and prey, using two differntial equations. I read about this in ["Wilkinson (2019)"](https://www.staff.ncl.ac.uk/d.j.wilkinson/smfsb/2e/) on page 40.
 
@@ -234,6 +232,22 @@ I also watched this helpful and interesting video which talks about the Lorenz A
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=fDek6cYijxI
 " target="_blank"><img src="http://img.youtube.com/vi/fDek6cYijxI/0.jpg"
 alt="Logistic Map Video" width="480" height="360" border="10" /></a>
+
+## Biochemical Reaction Networks  
+
+The exponential and logistic models can be described in terms of biochemical reactions.
+
+For the fist example of the exponential growth model, it can be visualised like so:
+
+![cell1](../../images/expcell.png)
+
+In this example we see cell reproduction on an exponential scale, with no limiting factor, so the population of cells in this model would increase exponentially. In order for the process to occur only cells need be present.
+
+In the next example of logistic growth model it can be shown like this:
+
+![cell2](../../images/logcell.png)
+
+In this example we see cell reproduction with a limiting factor, the nutrient. Now however, in order for the process of cell growth to take place, cells and nutrients must be present and each can act as a limiting factor of the reaction. This can be thought of in terms of a combustion reaction. If there is fuel but no oxygen present the reaction will not happen or visa versa. If both fuel and oxygen are present then the reaction will take place until one reactant has been exhausted. We see this in the logistic graph when it stops growing and the Y value stays constant.  
 
 ## Deterministic and Stochastic Models
 
