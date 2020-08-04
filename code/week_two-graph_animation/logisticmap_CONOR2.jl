@@ -17,16 +17,17 @@ function logisticmap(;x0=0.21,r=4,n=10)
   results
 end
 
-function vary(dname;x0_vals=[],r_vals=[])
+function vary(dname;x0_vals=[],r_vals=[],n_vals=[])
  if !isdir(dname)
   mkdir(dname)
  end
  fno = 1
  for x0 in x0_vals
   for r in r_vals
+   for n in n_vals
    fname = format(dname*"/frame{:05d}.png",fno)
    fno = fno + 1
-   simres = logisticmap(x0=x0, r=r, n=100)
+   simres = logisticmap(x0=x0, r=r, n=n)
    xvals = [x for (x, y) in simres]
    yvals = [y for (x, y) in simres]
    plot(xvals,yvals,legend=false,xaxis=false,yaxis=false,xlim=(0,1),ylim=(0,1));

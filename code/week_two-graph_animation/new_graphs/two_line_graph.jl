@@ -15,9 +15,9 @@ function logisticmap(;x0=0.21,r=4,n=10)
   results
 end
 
-simres = logisticmap(x0=0.2,r=4,n=100)
+simres = logisticmap(x0=0.2,r=4,n=20)
 
-simres2 = logisticmap(x0=0.3,r=4,n=100)
+simres2 = logisticmap(x0=0.2001,r=4,n=20)
 
 xvals = [x for (x, y) in simres]
 yvals = [y for (x, y) in simres]
@@ -28,6 +28,8 @@ yvals2 = [y for (x, y) in simres2]
 
 trace = scatter(;x=xvals, y=yvals, mode="lines", name = "x0=0.2")
 
-trace2 = scatter(;x=xvals2, y=yvals2, mode="lines", name = "x0=0.3")
+trace2 = scatter(;x=xvals2, y=yvals2, mode="lines", name = "x0=0.2001")
 
 plot([ trace, trace2])
+
+savefig("../../images/doublelines.png")
