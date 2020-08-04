@@ -70,11 +70,11 @@ alt="Logistic Map Video" width="480" height="360" border="10" /></a>
 
 I started looking at differential equations and how to solve them in Julia. Firstly I looked at [two types](https://lwlss.net/talks/MathModel.pdf) (pages 4 & 5) of differential equations: exponential and logistic growth equations. The exponential growth equation looks like this:
 
-*dN(t)/dt = rN(t)*
+![exponential](../../images/exponentialeq.png)
 
 the logistic growth equation looks like this:
 
-*dN(t)/dt = rN(t)(1-(N(t)/K))*
+![logistic](../../images/logisticeq.png)
 
 I found it useful to write down these two ODEs for two main reasons. The first being that it is nice to have a visual representation of the ODEs that I'm trying to model and the second reason is that you can solve them to find the analytical solutions for each of these equations, although only because they are particularly simple and normally analytical solutions are not achievable for more complex ODEs. As you will see in the following blocks of code for the exponential and logistic growth maps, at the bottom an extra `plot!` function has been used to add the "true solution" onto the graphs. For ODEs without analytical solutions the "true solution/line" can never be exactly plotted, but can be made more accurate by increasing the tolerance.
 
