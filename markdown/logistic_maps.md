@@ -30,7 +30,7 @@ The chaotic and unpredictable nature of this function can be seen most clearly i
 
 ![Double Plot](../images/double_lines.png)
 
-In this example two different values of `x0` were plotted with the same value of `r` and the same number of iterations, however, with only a 0.1 difference in `x0` values the graph displays a large difference between the `x0` value of 0.2 in blue and the `x0` value of 0.3 in orange. This shows how much the initial conditions of the function can almost completely change the look of the output. As seen here only a small change can lead to a big change and is a good example of the nonlinear nature of this equation.
+In this example two different values of `x0` were plotted with the same value of `r` and the same number of iterations, however, with only a 0.1 difference in `x0` values the graph displays a large difference between the `x0` value of 0.2 in blue and the `x0` value of 0.3 in orange. This shows how much the initial conditions of the function can almost completely change the look of the output. As seen here only a small change can lead to a big change and is a good example of the nonlinear nature of this equation. This is called sensitivity to initial conditions. In this case high sensitivity.
 
 The differences and also similarities can perhaps be seen better here:
 
