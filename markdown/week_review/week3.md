@@ -243,11 +243,23 @@ For the fist example of the exponential growth model, it can be visualised like 
 
 In this example we see cell reproduction on an exponential scale, with no limiting factor, so the population of cells in this model would increase exponentially. In order for the process to occur only cells need be present.
 
+This can also be represented in this form:
+
+![bcell](../../images/bcell.png)
+
+Here we can see that b represents the growth rate and conditions of the cell, with `r` here being the factor of growth.
+
 In the next example of logistic growth model it can be shown like this:
 
 ![cell2](../../images/logcell.png)
 
 In this example we see cell reproduction with a limiting factor, the nutrient. Now however, in order for the process of cell growth to take place, cells and nutrients must be present and each can act as a limiting factor of the reaction. This can be thought of in terms of a combustion reaction. If there is fuel but no oxygen present the reaction will not happen or visa versa. If both fuel and oxygen are present then the reaction will take place until one reactant has been exhausted. We see this in the logistic graph when it stops growing and the Y value stays constant.  
+
+It can also be shown in this form:
+
+![bnutrient](../../images/bnutrient.png)
+
+Here it can be seen that the growth conditions require cells *and* nutrients to be present, with `r` here still acting as the rate of growth.
 
 ## Deterministic and Stochastic Models
 

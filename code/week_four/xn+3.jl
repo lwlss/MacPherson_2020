@@ -42,6 +42,8 @@ end
 
 r = 4
 x = (1/2)*(1-sqrt(-(2sqrt(r-4))/r^(3/2) - 2/r + 1))
-vary("loop5";x0_vals=(x+0.00001),r_vals=r, nvals=1:50)
+vary("xn+3";x0_vals=(x+0.00001),r_vals=r, nvals=1:50)
 
 # ((r^2)*(r*x*(1-x)))-((r^3)*(r*x(1-x))^2)+(2*(r^3*(r*x(1-x))^3))-((r^2)*(r*x(1-x))^2)-((r^3)*(r*x(1-x))^4)
+
+# ffmpeg -i frame%05d.png -vf "fps=12,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop 0 output.gif

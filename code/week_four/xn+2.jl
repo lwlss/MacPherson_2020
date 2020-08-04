@@ -44,4 +44,4 @@ end
 
 r = 4.0
 x = (r+sqrt(r-4)*sqrt(r))/(2*r)
-vary("loop4";x0_vals=(x+0.00001),r_vals=r, nvals=1:10)
+vary("xn+2";x0_vals=(x+0.00001),r_vals=r, nvals=1:10)
