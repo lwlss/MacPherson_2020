@@ -43,15 +43,26 @@ Using the website [Wolfram Alpha](https://www.wolframalpha.com/) I managed to so
 
 ![Xvals](/images/xn2_solution.png)
 
-By inputting these values into the above code for the values of X, I managed to get a sequence of 10 images which showed a loop of squares, which was what I was expecting:
+By inputting these values into the above code for the values of X, I managed to get a sequence of 10 images which showed a stable set of images:
 
 ```julia
-r = 4.6
+r = 4.0
 x = (r+sqrt(r-4)*sqrt(r))/(2*r)
-vary("loop3";x0_vals=[x] ,r_vals=[r], nvals=1:10)
+vary("xn+2";x0_vals=[x] ,r_vals=[r], nvals=1:10)
 ```
 
-![xn2](/loop3/output.gif)
+![stablexn2](../images/xn2_stable.png)
+
+When the code is run again, this time by adding ε epsilon (a very small number) onto the value of x seen below, it quickly destabilises the system and causes chaotic behaviour typically seen in the logistic map to occur once again:
+
+```julia
+r = 4.0
+x = (r+sqrt(r-4)*sqrt(r))/(2*r)
+vary("xn+2";x0_vals=(x+0.00001),r_vals=r, nvals=1:50) # here the `0.00001` represents epsilon
+```
+
+![destablexn3](../xn+2/output.gif)
+
 
 ##### X<sub>n+3</sub> = X<sub>n</sub>
 
@@ -69,7 +80,7 @@ vary("xn+3";x0_vals=(x),r_vals=r, nvals=1:50)
 
 ![stablexn3](../images/xn3_stable.png)
 
-When the code is run again, but this time by adding ε epsilon (a very small number) onto the value of x seen below, it quickly destabilises the system and causes chaotic behaviour typically seen in the logistic map to occur once again:
+When the code is run again, but this time by adding ε epsilon onto the value of x seen below, it quickly destabilises the system and causes chaotic behaviour typically seen in the logistic map to occur once again:
 
 ```julia
 r = 4
