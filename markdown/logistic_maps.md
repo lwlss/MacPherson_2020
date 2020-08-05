@@ -41,7 +41,7 @@ Although the orange markers seem to be in different places from the blue ones, t
 
 Using the website [Wolfram Alpha](https://www.wolframalpha.com/) I managed to solve the equation   X<sub>n+2</sub> = X<sub>n</sub> for X<sub>n</sub> . The values of Xn I was returned were:
 
-![Xvals](/images/xn2_solution.png)
+![Xvals](../images/xn2_solution.png)
 
 By inputting these values into the above code for the values of X, I managed to get a sequence of 10 images which showed a stable set of images:
 
