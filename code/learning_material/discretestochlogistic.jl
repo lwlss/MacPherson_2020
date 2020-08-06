@@ -123,25 +123,25 @@ plot(sollv)
 bd_model = @reaction_network bd begin
   lambda, cell  --> 2cell
   mu, cell  --> null
-end lambda, mu
+end lambda mu
 
-lambda = 2.0
+lambda = 3.0
 mu= 0.5
-cell0 = 1.0
+cell0 = 100.0
 null0 = 0.0
 
-tspan = (0.0,1.0)
+tspan = (0.0,100.0)
 p =  (lambda, mu)
 u0 = [cell0, null0]
 
-oprobbd = ODEProblem(logistic_model, u0, tspan, p)
-osole = solve(oprob)
-plot(osole)
+oprobbd = ODEProblem(bd_model, u0, tspan, p)
+osolebd = solve(oprobbd)
+plot(osolebd)
 
 probbd = DiscreteProblem(u0, tspan ,p)
 jump_prob = JumpProblem(probbd,Direct(),bd_model)
 solbd = solve(jump_prob,FunctionMap())
 #plot(sole)
-plot!(solbd)
+plot(solbd)
 
 # What is the difference between the birth-death model and the exponential model?
