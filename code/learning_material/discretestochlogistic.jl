@@ -139,22 +139,28 @@ bd_model = @reaction_network bd begin
 end lambda mu
 
 lambda = 3.0
-mu= 0.5
-cell0 = 100.0
+mu= 1.0
+cell0 = 5.0
 null0 = 0.0
 
-tspan = (0.0,100.0)
+tspan = (0.0,5.0)
 p =  (lambda, mu)
 u0 = [cell0, null0]
 
 oprobbd = ODEProblem(bd_model, u0, tspan, p)
 osolebd = solve(oprobbd)
-plot(osolebd)
+#plot(osolebd)
+plot(osolbd.t, [osolbd.u[i][1] for i in 1:length(osolbd.t)], labels="Cells", color= "blue")
+plot!(osolbd.t, [osolbd.u[i][2] for i in 1:length(osolbd.t)], labels="Null", color="red")
+
 
 probbd = DiscreteProblem(u0, tspan ,p)
 jump_prob = JumpProblem(probbd,Direct(),bd_model)
 solbd = solve(jump_prob,FunctionMap())
-#plot(sole)
-plot(solbd)
+#plot(solbd)
+plot!(solbd.t, [solbd.u[i][1] for i in 1:length(solbd.t)], labels="cells", color= "blue")
+plot!(solbd.t, [solbd.u[i][2] for i in 1:length(solbd.t)], labels="nutrients", color="red")
+
+
 
 # What is the difference between the birth-death model and the exponential model?
