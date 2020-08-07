@@ -138,8 +138,8 @@ bd_model = @reaction_network bd begin
   mu, cell  --> null
 end lambda mu
 
-lambda = 3.0
-mu= 1.0
+lambda = 5.0
+mu= 0.2
 cell0 = 5.0
 null0 = 0.0
 
@@ -148,18 +148,18 @@ p =  (lambda, mu)
 u0 = [cell0, null0]
 
 oprobbd = ODEProblem(bd_model, u0, tspan, p)
-osolebd = solve(oprobbd)
-#plot(osolebd)
+osolbd = solve(oprobbd)
+#plot(osolbd)
 plot(osolbd.t, [osolbd.u[i][1] for i in 1:length(osolbd.t)], labels="Cells", color= "blue")
-plot!(osolbd.t, [osolbd.u[i][2] for i in 1:length(osolbd.t)], labels="Null", color="red")
+plot!(osolbd.t, [osolbd.u[i][2] for i in 1:length(osolbd.t)], labels="Dead Cells", color="red")
 
 
 probbd = DiscreteProblem(u0, tspan ,p)
 jump_prob = JumpProblem(probbd,Direct(),bd_model)
 solbd = solve(jump_prob,FunctionMap())
 #plot(solbd)
-plot!(solbd.t, [solbd.u[i][1] for i in 1:length(solbd.t)], labels="cells", color= "blue")
-plot!(solbd.t, [solbd.u[i][2] for i in 1:length(solbd.t)], labels="nutrients", color="red")
+plot(solbd.t, [solbd.u[i][1] for i in 1:length(solbd.t)], labels="Cells", color= "blue")
+plot!(solbd.t, [solbd.u[i][2] for i in 1:length(solbd.t)], labels="Dead Cells", color="red")
 
 
 
