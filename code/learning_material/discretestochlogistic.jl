@@ -20,8 +20,8 @@ osol = solve(oprob)
 Kbio = nutrient0+cell0
 n = [((Kbio)*(cell0*exp(r*t)))/((Kbio)+(cell0*(exp(r*t)-1))) for t in osol.t]
 #plot(osol)
-plot(osol.t, [osol.u[i][1] for i in 1:length(osol.t)], labels="cells", color= "blue")
-plot!(osol.t, [osol.u[i][2] for i in 1:length(osol.t)], labels="nutrients", color="red")
+plot(osol.t, [osol.u[i][1] for i in 1:length(osol.t)], labels="Cells", color= "blue", lw=2.0)
+plot!(osol.t, [osol.u[i][2] for i in 1:length(osol.t)], labels="Nutrients", color="red", lw=2.0)
 
 
 # https://nextjournal.com/sosiris-de/diffeqbiological
@@ -31,8 +31,9 @@ plot!(osol.t, [osol.u[i][2] for i in 1:length(osol.t)], labels="nutrients", colo
 prob = DiscreteProblem(u0, tspan ,p)
 jump_prob = JumpProblem(prob,Direct(),logistic_model)
 sol = solve(jump_prob,FunctionMap())
-plot(sol)
-
+#plot(sol)
+plot(sol.t, [sol.u[i][1] for i in 1:length(sol.t)], labels="", color="blue", lw=2)
+plot!(sol.t, [sol.u[i][2] for i in 1:length(sol.t)], labels="", color="red", lw=2)
 # Can you plot the stochastic solution (sol) on top of the deterministic solution (osol)?
 
 plot(osol)
@@ -67,7 +68,6 @@ oprob = ODEProblem(logistic_model, u0, tspan, p)
 osol = solve(oprob)
 Kbio = nutrient0+cell0
 n = [((Kbio)*(cell0*exp(r*t)))/((Kbio)+(cell0*(exp(r*t)-1))) for t in osol.t]
-#plot(osol)
 plot!(osol.t, [osol.u[i][1] for i in 1:length(osol.t)], labels="Deterministic Non-Discrete Solution", color="black", lw=2)
 plot!(osol.t, [osol.u[i][2] for i in 1:length(osol.t)], labels="", color="black", legend=:right, lw=2)
 
