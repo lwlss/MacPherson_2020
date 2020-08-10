@@ -200,7 +200,7 @@ In the above graph, D-prey and D-predators represent the lines drawn by the dete
 
 ## Mitochondria, mtDNA and Clonal Expansion
 
-As part of my research for my project I read Max Piotrowicz's [blog post](http://mito.ncl.ac.uk/clonexp/clonal_expansion/) about clonal expansion. I also read [Lawless et al.(2020)](https://royalsocietypublishing.org/doi/10.1098/rsob.200061). Here is a summary of my notes and understanding of [mitochondria](https://www.genome.gov/genetics-glossary/Mitochondria#:~:text=Mitochondria%20are%20membrane%2Dbound%20cell,called%20adenosine%20triphosphate%20(ATP).), [mtDNA](https://en.wikipedia.org/wiki/Mitochondrial_DNA#:~:text=Mitochondrial%20DNA%20(mtDNA%20or%20mDNA,%2C%20adenosine%20triphosphate%20(ATP).) (mitochondrial DNA) and the process of clonal expansion.
+As part of my research for my project I read Max Piotrowicz's [blog post](http://mito.ncl.ac.uk/clonexp/clonal_expansion/) about clonal expansion. I also read [Lawless et al.(2020)](https://royalsocietypublishing.org/doi/10.1098/rsob.200061). Here is a summary of my notes and understanding of [mitochondria](https://www.genome.gov/genetics-glossary/Mitochondria#:~:text=Mitochondria%20are%20membrane%2Dbound%20cell,called%20adenosine%20triphosphate%20(ATP))., [mtDNA](https://en.wikipedia.org/wiki/Mitochondrial_DNA#:~:text=Mitochondrial%20DNA%20(mtDNA%20or%20mDNA,%2C%20adenosine%20triphosphate%20(ATP))) (mitochondrial DNA) and the process of clonal expansion.
 
 ### Mitochondria
 
