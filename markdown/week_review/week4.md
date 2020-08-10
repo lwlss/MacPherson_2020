@@ -199,6 +199,12 @@ plot!(sollv.t, [sollv.u[i][2] for i in 1:length(sollv.t)], labels="S-Predators",
 
 In the above graph, D-prey and D-predators represent the lines drawn by the deterministic solution and S-prey and S-predators represent the lines drawn the discrete stochastic solution. As you can see both prey and predators in the stochastic solution go extinct before half way through the graph. This is because of the discrete nature of the model. In the stochastic model, once the predators consume all of the prey, the population of prey will be `0`and therefore won't reproduce, irrespective of how high the rate of reproduction is as `X*0=0`. Consequently this will also mean that the predators will have no food to eat and will eventually starve and go extinct. Both of these inevitable occurrences are shown in the graph above. In the deterministic model however, the values of predator and prey can be non-integer values and therefore as can be seen, once the population of predators has fallen sufficiently the prey population can once again repopulate and the process will repeat itself.
 
+Distinct similarities between the deterministic continuous and discrete stochastic solutions can be seen however, when greater initial conditions or initial population sizes are used. This can be seen in this example:
+
+![simsinlv](../../images/lv_sim.png)
+
+In this plot you can clearly see the deterministic and stochastic lines of the predators (yellow and red lines) overlapping and showing essentially the exact same trend until around `t=25`. Compared to the previous example, where initial population sizes of 4 and 10 were used, in this example much larger initial conditions are used and as a result, the similarities between both solutions becomes much clearer. Still however, the stochastic solution lacks the continuous nature of the deterministic solution and so eventually, and inevitably both of it's populations will become extinct.
+
 ## Mitochondria, mtDNA and Clonal Expansion
 
 As part of my research for my project I read Max Piotrowicz's [blog post](http://mito.ncl.ac.uk/clonexp/clonal_expansion/) about clonal expansion. I also read [Lawless et al.(2020)](https://royalsocietypublishing.org/doi/10.1098/rsob.200061). Here is a summary of my notes and understanding of [mitochondria](https://www.genome.gov/genetics-glossary/Mitochondria#:~:text=Mitochondria%20are%20membrane%2Dbound%20cell,called%20adenosine%20triphosphate%20(ATP))., [mtDNA](https://en.wikipedia.org/wiki/Mitochondrial_DNA#:~:text=Mitochondrial%20DNA%20(mtDNA%20or%20mDNA,%2C%20adenosine%20triphosphate%20(ATP))) (mitochondrial DNA) and the process of clonal expansion.
@@ -207,10 +213,16 @@ As part of my research for my project I read Max Piotrowicz's [blog post](http:/
 
 Inside of each cell there are smaller structures which each carry out their own functions. These microscopic structures are called [organelles](https://en.wikipedia.org/wiki/Organelle) and one type of these organelles are known as mitochondria. The function of these is to produce energy required by the cell to perform it's normal functions. They do so by converting sugars, proteins and fats into adenosine triphosphate (ATP). They also take part in an important process known as [apoptosis](https://en.wikipedia.org/wiki/Apoptosis) or cell death. Because over 90% of the energy needed by cells is produced by mitochondria, any improper functions of mitochondria can cause detrimental effects to patients who suffer from mitochondrial diseases. Adults who suffer from mitochondrial diseases can experience muscle weakness, intolerance to exercise and fatigue. [Drooping eyelids](https://www.umdf.org/types/cpeo-kss/#:~:text=at%20the%20NIH%20%3E%3E-,Kearns%2DSayre%20Syndrome,seeing%20in%20dimly%20lit%20environments.) is also a typical symptom of mitochondrial diseases.
 
+ [![Mitochondria](../../images/cellmtdna.png)](https://bionewscentral.com/big-changes-from-small-players-mitochondria-alter-body-metabolism-and-gene-expression/)
+
 ### mtDNA
 
 mtDNA or mitochondrial DNA is found in mitochondria and are distinct from [nuclear DNA](https://en.wikipedia.org/wiki/Nuclear_DNA#:~:text=Nuclear%20DNA%20(nDNA)%2C%20or,DNA%20coding%20for%20the%20rest.) in many ways. Where nuclear DNA contains many billion base pairs, mtDNA contains only 16,569. Where nuclear DNA is linear in shape mtDNA is circular and much smaller than nuclear DNA. There are two types of mtDNA, "wild type" and "mutated" mtDNA. Wild type are widespread and are 'normal' and mutated mtDNA occurs when point mutation or deletion happens within the mtDNA. Point mutations occur when one base pair mutates. If this particular pair is important for the mitochondria to function properly then it could have serious consequences further on in the patients life. Deletions occur when a whole section of the mtDNA circle is removed, with the two ends joining back together after.
 
+[![mtDNA](../../images/mtdna.png)](https://www.researchgate.net/figure/Human-mitochondrial-DNA-mtDNA-The-mtDNA-consists-of-a-light-inner-and-heavy_fig1_329446024)
+
 ### Clonal Expansion
 
 Clonal expansion is the process in which the amount of mutated mtDNA within individual cells increases, usually of the decades of a patient's lifetime. This process can be considered to be a discrete stochastic process. One of the main reasons why mathematical modelling is so important in the continued study and research into clonal expansion is because of the huge amount of time in which the process takes place. It would be extremely time consuming and expensive to conduct real life observations in a single patient, however it is much more practical and cheaper to simulate the process of clonal expansion on a computer using a mathematical model.
+
+[![clonal_expansion](../../images/clonalexpansiontheories.png)](https://royalsocietypublishing.org/doi/10.1098/rsob.200061)
