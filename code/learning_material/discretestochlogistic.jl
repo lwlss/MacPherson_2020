@@ -73,6 +73,12 @@ plot!(osol.t, [osol.u[i][2] for i in 1:length(osol.t)], labels="", color="black"
 
 # Can you simulate from the discrete stochastic exponential model?
 
+############################################################################################################
+
+using DiffEqBiological
+using DifferentialEquations
+using Plots
+using Colors
 
 exponential_model = @reaction_network exponential begin
   r, cell  --> 2cell
@@ -89,11 +95,32 @@ oprobe = ODEProblem(exponential_model, u0, tspan, p)
 osole = solve(oprobe)
 plot(osole, labels="Deterministic Solution", lw=2)
 
-prob = DiscreteProblem(u0, tspan ,p)
-jump_prob = JumpProblem(prob,Direct(),exponential_model)
+probe = DiscreteProblem(u0, tspan ,p)
+jump_prob = JumpProblem(probe,Direct(),exponential_model)
 sole = solve(jump_prob,FunctionMap())
 #plot(sole)
 plot!(sole, title="Deterministic and Stochastic Exponential Model", xaxis="Time", yaxis="Popuplation Size", legend=:left, lw=2, labels="Stochastic Solution")
+
+nsins=100
+prob = DiscreteProblem(u0, tspan ,p)
+jump_prob = JumpProblem(prob,Direct(),exponential_model)
+solutions =[solve(jump_prob,FunctionMap()) for i in 1:nsins]
+plot(solutions[1].t, [solutions[1].u[i][1] for i in 1:length(solutions[1].t)], labels="Cells", color= "blue", xaxis="Time", yaxis="Population Size", lw=0.3)
+for j in 2:nsins
+    p=plot!(solutions[j].t, [solutions[j].u[i][1] for i in 1:length(solutions[j].t)], labels="", color= "blue", lw=0.3)
+    display(p)
+end
+oprob = ODEProblem(exponential_model, u0, tspan, p)
+osol = solve(oprobe)
+Kbio = nutrient0+cell0
+n = [((Kbio)*(cell0*exp(r*t)))/((Kbio)+(cell0*(exp(r*t)-1))) for t in osol.t]
+plot!(osol.t, [osol.u[i][1] for i in 1:length(osol.t)], labels="Deterministic Non-Discrete Solution", color="black", legend=:left, lw=2)
+
+
+
+######################################################################################################################
+
+
 
 # Can you simulate from the discrete stochastic Lotka-Volterra model?
 
@@ -133,6 +160,7 @@ plot!(sollv.t, [sollv.u[i][2] for i in 1:length(sollv.t)], labels="S-Predators",
 
 # Can you simulate from the discrete stochastic birth-death model?
 
+############################################################################################################################
 
 bd_model = @reaction_network bd begin
   lambda, cell  --> 2cell
@@ -162,12 +190,18 @@ solbd = solve(jump_prob,FunctionMap())
 plot!(solbd.t, [solbd.u[i][1] for i in 1:length(solbd.t)], labels="Cells", color= "black")
 plot!(solbd.t, [solbd.u[i][2] for i in 1:length(solbd.t)], labels="Dead Cells", color="brown")
 
-
+################################################################################################################################
 
 # What is the difference between the birth-death model and the exponential model?
 
+using DiffEqBiological
+using DifferentialEquations
+using Plots
+using Colors
+using ParameterizedFunctions
+
 mtdna_model = @reaction_network mtdna begin
-  b*max(wildtype+mut), wildtype  --> 2wildtype
+  ifelse(wildtype+mut > 100, 0, b), wildtype --> 2wildtype
   d, wildtype  --> null
   bmut, mut --> 2mut
   dmut, mut --> null
@@ -175,15 +209,16 @@ mtdna_model = @reaction_network mtdna begin
   # can we have wildtype --> 2mut
 end b d bmut dmut m
 
-function condition(u,t,integrator)
-    u[1]+u[3]
-end
+#function condition(u,t,integrator)
+#    u[1]+u[3]
+#end
 
-function affect!(integrator)
-    integrator.p[1]=0
-end
+#function affect!(integrator)
+#    integrator.p[1]=0
+#end
 
-change_b=ContinuousCallback(condition,affect!)
+#change_b=ContinuousCallback(condition,affect!)
+
 # parameter values
 
 b = 0.001875*365

@@ -22,8 +22,9 @@ When the code is run again, but this time by adding ε epsilon onto the value of
 
 ```julia
 r = 4
+ε = 0.00001
 x = (1/2)*(1-sqrt(-(2sqrt(r-4))/r^(3/2) - 2/r + 1))
-vary("xn+3";x0_vals=(x+0.00001),r_vals=r, nvals=1:50) # here the `0.00001` represents epsilon
+vary("xn+3";x0_vals=(x+ε),r_vals=r, nvals=1:50)
 ```
 
 ![destablexn3](../../xn+3/output.gif)
@@ -32,11 +33,11 @@ vary("xn+3";x0_vals=(x+0.00001),r_vals=r, nvals=1:50) # here the `0.00001` repre
 
 ### Logistic Graph
 
-Up until now I have been modelling deterministic, non-discrete models such as the logistic map system, the exponential and logistic models and the Lotka-Volterra system, as well as the Lorenz attractor system.
+Up until now I have been simulating from deterministic continuous models such as the logistic map system, the exponential and logistic models and the Lotka-Volterra system, as well as the Lorenz attractor system.
 
 This week however, I began modelling discrete stochastic systems with the help of the [DiffEqBiological.jl](https://diffeq.sciml.ai/release-6.6/index.html) package, as well as the previously used [DifferentialEquations.jl](https://diffeq.sciml.ai/stable/) package and the [Plots.jl](https://docs.juliaplots.org/latest/) package.
 
-I began by modelling the logistic model. Unlike the previous model I made for the logistic graph, this model specified the limiting factor as a value of nutrient and the population model to be of cells. The purpose of this model is to show the population dynamics as a cell undergoes reproduction/division.
+I began by writing the logistic model as a biochemical reaction network. Unlike the previous model I made for the logistic graph, this model describes a population of cells consuming a limited 'population' of "nutrients". The purpose of this model is to show the population dynamics as a cell undergoes reproduction/division.
 
 I defined reaction network called `logistic_model` which was written as so:
 
@@ -109,14 +110,14 @@ oprob = ODEProblem(logistic_model, u0, tspan, p)
 osol = solve(oprob)
 Kbio = nutrient0+cell0
 n = [((Kbio)*(cell0*exp(r*t)))/((Kbio)+(cell0*(exp(r*t)-1))) for t in osol.t]
-plot!(osol.t, [osol.u[i][1] for i in 1:length(osol.t)], labels="Deterministic Non-Discrete Solution", color="black", lw=2)
+plot!(osol.t, [osol.u[i][1] for i in 1:length(osol.t)], labels="Deterministic Continuous Solution", color="black", lw=2)
 plot!(osol.t, [osol.u[i][2] for i in 1:length(osol.t)], labels="", color="black", legend=:right, lw=2)
 ```
 This will then output the following plot:
 
 ![dspd_logistic](../../images/dspd_logistic.png)
 
-As you can see the most highest concentration of red and blue lines (the discrete stochastic plots) appear around the deterministic non-discrete solution line. You can also observe that some red and blue lines appear much further out to the right than the black line. This is a perfect example of the stochastic nature of the model. It also shows the lower likelihood that plots will be drawn away from the deterministic solution as only very few plots have been drawn far away from the curve.
+As you can see the most highest concentration of red and blue lines (the discrete stochastic plots) appear around the deterministic continuous solution line. You can also observe that some red and blue lines appear much further out to the right than the black line. This is a perfect example of the stochastic nature of the model. It also shows the lower likelihood that plots will be drawn away from the deterministic solution as only very few plots have been drawn far away from the curve.
 
 ### Exponential Model
 
