@@ -87,7 +87,7 @@ end r
 r = 2.0
 cell0 = 1.0
 
-tspan = (0.0,1.0)
+tspan = (0.0,10.0)
 p = (r)
 u0 = [cell0]
 
@@ -102,21 +102,31 @@ sole = solve(jump_prob,FunctionMap())
 plot!(sole, title="Deterministic and Stochastic Exponential Model", xaxis="Time", yaxis="Popuplation Size", legend=:left, lw=2, labels="Stochastic Solution")
 
 nsins=100
+probe = DiscreteProblem(u0, tspan ,p)
+jump_prob = JumpProblem(probe,Direct(),exponential_model)
+solutions = solve(jump_prob,FunctionMap())
+plot(solutions[1].t, [solutions[1].u[i][1] for i in 1:length(solutions[1].t)], labels="Cells", color= "blue", xaxis="Time", yaxis="Population Size", title="Discrete Stochastic Populations Dynamics", lw=0.3)
+plot!(solutions[1].t,[solutions[1].u[i][2] for i in 1:length(solutions[1].t)], labels="Nutrients", color="red", lw=0.3)
+for j in 2:nsins
+
+nsins=100
 prob = DiscreteProblem(u0, tspan ,p)
-jump_prob = JumpProblem(prob,Direct(),exponential_model)
+jump_prob = JumpProblem(prob,Direct(),logistic_model)
 solutions =[solve(jump_prob,FunctionMap()) for i in 1:nsins]
-plot(solutions[1].t, [solutions[1].u[i][1] for i in 1:length(solutions[1].t)], labels="Cells", color= "blue", xaxis="Time", yaxis="Population Size", lw=0.3)
+plot(solutions[1].t, [solutions[1].u[i][1] for i in 1:length(solutions[1].t)], labels="Cells", color= "blue", xaxis="Time", yaxis="Population Size", title="Discrete Stochastic Populations Dynamics", lw=0.3)
+plot!(solutions[1].t,[solutions[1].u[i][2] for i in 1:length(solutions[1].t)], labels="Nutrients", color="red", lw=0.3)
 for j in 2:nsins
     p=plot!(solutions[j].t, [solutions[j].u[i][1] for i in 1:length(solutions[j].t)], labels="", color= "blue", lw=0.3)
+    q=plot!(solutions[j].t,[solutions[j].u[i][2] for i in 1:length(solutions[j].t)], labels="", color="red", lw=0.3)
     display(p)
+    display(q)
 end
-oprob = ODEProblem(exponential_model, u0, tspan, p)
-osol = solve(oprobe)
+oprob = ODEProblem(logistic_model, u0, tspan, p)
+osol = solve(oprob)
 Kbio = nutrient0+cell0
 n = [((Kbio)*(cell0*exp(r*t)))/((Kbio)+(cell0*(exp(r*t)-1))) for t in osol.t]
-plot!(osol.t, [osol.u[i][1] for i in 1:length(osol.t)], labels="Deterministic Non-Discrete Solution", color="black", legend=:left, lw=2)
-
-
+plot!(osol.t, [osol.u[i][1] for i in 1:length(osol.t)], labels="Deterministic Non-Discrete Solution", color="black", lw=2)
+plot!(osol.t, [osol.u[i][2] for i in 1:length(osol.t)], labels="", color="black", legend=:right, lw=2)
 
 ######################################################################################################################
 
