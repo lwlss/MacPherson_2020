@@ -9,14 +9,14 @@ end r
 
 r = 1.5
 cell0 = 1.0
-nutrient0 = 20.0
+nutrient0 = 2000.0
 
-tspan = (0.0,1.0)
+tspan = (0.0,0.008)
 p =  (r)
 u0 = [cell0, nutrient0]
 
 oprob = ODEProblem(logistic_model, u0, tspan, p)
-osol = solve(oprob)
+osol = solve(oprob, reltol=1e-8,abstol=1e-8)
 Kbio = nutrient0+cell0
 n = [((Kbio)*(cell0*exp(r*t)))/((Kbio)+(cell0*(exp(r*t)-1))) for t in osol.t]
 #plot(osol)
@@ -65,10 +65,10 @@ for j in 2:nsins
     display(q)
 end
 oprob = ODEProblem(logistic_model, u0, tspan, p)
-osol = solve(oprob)
+osol = solve(oprob, reltol=1e-8,abstol=1e-8)
 Kbio = nutrient0+cell0
 n = [((Kbio)*(cell0*exp(r*t)))/((Kbio)+(cell0*(exp(r*t)-1))) for t in osol.t]
-plot!(osol.t, [osol.u[i][1] for i in 1:length(osol.t)], labels="Deterministic Non-Discrete Solution", color="black", lw=2)
+plot!(osol.t, [osol.u[i][1] for i in 1:length(osol.t)], labels="Deterministic Continuous Solution", color="black", lw=2)
 plot!(osol.t, [osol.u[i][2] for i in 1:length(osol.t)], labels="", color="black", legend=:right, lw=2)
 
 # Can you simulate from the discrete stochastic exponential model?
@@ -87,7 +87,7 @@ end r
 r = 2.0
 cell0 = 1.0
 
-tspan = (0.0,10.0)
+tspan = (0.0,1.0)
 p = (r)
 u0 = [cell0]
 
@@ -101,13 +101,19 @@ sole = solve(jump_prob,FunctionMap())
 #plot(sole)
 plot!(sole, title="Deterministic and Stochastic Exponential Model", xaxis="Time", yaxis="Popuplation Size", legend=:left, lw=2, labels="Stochastic Solution")
 
-nsins=100
+nsins=10
 probe = DiscreteProblem(u0, tspan ,p)
 jump_prob = JumpProblem(probe,Direct(),exponential_model)
-solutions = solve(jump_prob,FunctionMap())
-plot(solutions[1].t, [solutions[1].u[i][1] for i in 1:length(solutions[1].t)], labels="Cells", color= "blue", xaxis="Time", yaxis="Population Size", title="Discrete Stochastic Populations Dynamics", lw=0.3)
-plot!(solutions[1].t,[solutions[1].u[i][2] for i in 1:length(solutions[1].t)], labels="Nutrients", color="red", lw=0.3)
+solutions =[solve(jump_prob,FunctionMap()) for i in 1:nsins]
+plot(solutions[1].t, [solutions[1].u[i][1] for i in 1:length(solutions[1].t)], labels="")
 for j in 2:nsins
+    p=plot!(solutions[1].t, [solutions[1].u for i in 1:length(solutions[1].t)], labels="")
+    display(p)
+end
+oprobe = ODEProblem(exponential_model, u0, tspan, p)
+osole = solve(oprobe)
+plot!(osole, labels="Deterministic Solution", color="black", lw=2)
+
 
 nsins=100
 prob = DiscreteProblem(u0, tspan ,p)
@@ -189,16 +195,16 @@ u0 = [cell0, null0]
 oprobbd = ODEProblem(bd_model, u0, tspan, p)
 osolbd = solve(oprobbd, reltol=1e-8,abstol=1e-8)
 #plot(osolbd)
-plot(osolbd.t, [osolbd.u[i][1] for i in 1:length(osolbd.t)], labels="Cells", color= "blue")
-plot!(osolbd.t, [osolbd.u[i][2] for i in 1:length(osolbd.t)], labels="Dead Cells", color="red")
+plot(osolbd.t, [osolbd.u[i][1] for i in 1:length(osolbd.t)], labels="", color= "blue", ls=:dash)
+plot!(osolbd.t, [osolbd.u[i][2] for i in 1:length(osolbd.t)], labels="", color="red", ls=:dash)
 
 
 probbd = DiscreteProblem(u0, tspan ,p)
 jump_prob = JumpProblem(probbd,Direct(),bd_model)
 solbd = solve(jump_prob,FunctionMap())
 #plot(solbd)
-plot!(solbd.t, [solbd.u[i][1] for i in 1:length(solbd.t)], labels="Cells", color= "black")
-plot!(solbd.t, [solbd.u[i][2] for i in 1:length(solbd.t)], labels="Dead Cells", color="brown")
+plot!(solbd.t, [solbd.u[i][1] for i in 1:length(solbd.t)], labels="Cells", color= "blue")
+plot!(solbd.t, [solbd.u[i][2] for i in 1:length(solbd.t)], labels="Dead Cells", color="red", legend=:left, title="Birth-Death Model w/ Deterministic and Stochastic Solutions", xaxis="Time", yaxis="Popuplation Size")
 
 ################################################################################################################################
 

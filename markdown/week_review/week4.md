@@ -119,6 +119,10 @@ This will then output the following plot:
 
 As you can see the most highest concentration of red and blue lines (the discrete stochastic plots) appear around the deterministic continuous solution line. You can also observe that some red and blue lines appear much further out to the right than the black line. This is a perfect example of the stochastic nature of the model. It also shows the lower likelihood that plots will be drawn away from the deterministic solution as only very few plots have been drawn far away from the curve.
 
+This trend can be seen even more clearly by both increasing the initial population of nutrients and decreasing the time span greatly:
+
+![dspd_2000](../../images/dspd_2000.png)
+
 ### Exponential Model
 
 The next model I created was one that I had also previous made in a different format, the exponential model. This model is a bit more simple that the logistic model. It wrote it like this:
@@ -205,6 +209,49 @@ Distinct similarities between the deterministic continuous and discrete stochast
 
 In this plot you can clearly see the deterministic and stochastic lines of the predators (yellow and red lines) overlapping and showing essentially the exact same trend until around `t=25`. Compared to the previous example, where initial population sizes of 4 and 10 were used, in this example much larger initial conditions are used and as a result, the similarities between both solutions becomes much clearer. Still however, the stochastic solution lacks the continuous nature of the deterministic solution and so eventually, and inevitably both of it's populations will become extinct.
 
+### Birth-Death Model
+
+The final model which I simulated as a biochemical reaction network. This model works similarly to the exponential model, with the difference being that the cells have a parameter which dictates the death rate of the cell. As you can imagine, if the death rate is greater than growth or "birth" then the population of cells from initial condition will eventually go extinct and the number of deaths will increase until extinction and then enter a stable state. If the birth rate is equal to death rate the population will be stable and the number of deaths will increase linearly. If the birth rate is greater than the death rate than both populations of births and deaths will increase exponentially. This will be seen in the following graph. In the following graph the dotted lines represent the deterministic solutions and the solid lines the stochastic solution:
+
+![bdmodel](../../images/bd_model.png)  
+
+Note: <sub>If the birth and death rate are equal, the stochastic population will always reach extinction.</sub>
+
+The above plot was made first by defining the biochemical reaction network it is representing:
+
+```julia
+bd_model = @reaction_network bd begin
+  lambda, cell --> 2cell
+  mu, cell --> null
+end lambda mu
+```
+
+Then I set the initial conditions and defined the parameters and then plotted the graph:
+
+```julia
+lambda = 0.8
+mu= 0.5
+cell0 = 5.0
+null0 = 0.0
+
+tspan = (0.0,10.0)
+p =  (lambda, mu)
+u0 = [cell0, null0]
+
+oprobbd = ODEProblem(bd_model, u0, tspan, p)
+osolbd = solve(oprobbd, reltol=1e-8,abstol=1e-8)
+plot(osolbd.t, [osolbd.u[i][1] for i in 1:length(osolbd.t)], labels="", color= "blue", ls=:dash)
+plot!(osolbd.t, [osolbd.u[i][2] for i in 1:length(osolbd.t)], labels="", color="red", ls=:dash)
+
+probbd = DiscreteProblem(u0, tspan ,p)
+jump_prob = JumpProblem(probbd,Direct(),bd_model)
+solbd = solve(jump_prob,FunctionMap())
+plot!(solbd.t, [solbd.u[i][1] for i in 1:length(solbd.t)], labels="Cells", color= "blue")
+plot!(solbd.t, [solbd.u[i][2] for i in 1:length(solbd.t)], labels="Dead Cells", color="red", legend=:left, title="Birth-Death Model w/ Deterministic and Stochastic Solutions", xaxis="Time", yaxis="Popuplation Size")
+```
+
+
+
 ## Mitochondria, mtDNA and Clonal Expansion
 
 As part of my research for my project I read Max Piotrowicz's [blog post](http://mito.ncl.ac.uk/clonexp/clonal_expansion/) about clonal expansion. I also read [Lawless et al.(2020)](https://royalsocietypublishing.org/doi/10.1098/rsob.200061). Here is a summary of my notes and understanding of [mitochondria](https://www.genome.gov/genetics-glossary/Mitochondria#:~:text=Mitochondria%20are%20membrane%2Dbound%20cell,called%20adenosine%20triphosphate%20(ATP))., [mtDNA](https://en.wikipedia.org/wiki/Mitochondrial_DNA#:~:text=Mitochondrial%20DNA%20(mtDNA%20or%20mDNA,%2C%20adenosine%20triphosphate%20(ATP))) (mitochondrial DNA) and the process of clonal expansion.
@@ -223,6 +270,6 @@ mtDNA or mitochondrial DNA is found in mitochondria and are distinct from [nucle
 
 ### Clonal Expansion
 
-Clonal expansion is the process in which the amount of mutated mtDNA within individual cells increases, usually of the decades of a patient's lifetime. This process can be considered to be a discrete stochastic process. One of the main reasons why mathematical modelling is so important in the continued study and research into clonal expansion is because of the huge amount of time in which the process takes place. It would be extremely time consuming and expensive to conduct real life observations in a single patient, however it is much more practical and cheaper to simulate the process of clonal expansion on a computer using a mathematical model.
+Clonal expansion is the process in which the amount of mutated mtDNA within individual cells increases, usually of the decades of a patient's lifetime. This process can be considered to be a discrete stochastic process. One of the main reasons why mathematical modelling is so important in the continued study and research into clonal expansion is because of the huge amount of time in which the process takes place. It would be extremely time consuming and expensive to conduct real life observations in a single patient, however it is much more practical and cheaper to simulate the process of clonal expansion on a computer using a mathematical model. Another important consideration to make is the ethical consideration of direct observations of mtDNA containing cells mainly through muscle biopsies. Not only are these painful for the patient but repeated sample taking causes damage and harm to the patients.  
 
 [![clonal_expansion](../../images/clonalexpansiontheories.png)](https://royalsocietypublishing.org/doi/10.1098/rsob.200061)
