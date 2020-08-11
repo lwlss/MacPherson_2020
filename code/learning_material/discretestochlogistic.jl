@@ -84,10 +84,10 @@ exponential_model = @reaction_network exponential begin
   r, cell  --> 2cell
 end r
 
-r = 2.0
+r = 5.0
 cell0 = 10.0
 
-tspan = (0.0,100.0)
+tspan = (0.0,1.0)
 p = (r)
 u0 = [cell0]
 
@@ -105,34 +105,14 @@ nsims=100
 probe = DiscreteProblem(u0, tspan ,p)
 jump_prob = JumpProblem(probe,Direct(),exponential_model)
 solutions =[solve(jump_prob,FunctionMap()) for i in 1:nsims]
-plot(solutions[1].t, [solutions[1].u[i][1] for i in 1:length(solutions[1].t)], labels="Cells", color="blue")
+plot(solutions[1].t, [solutions[1].u[i][1] for i in 1:length(solutions[1].t)], labels="Cells", color="blue", lw=0.2)
 for j in 2:nsims
-    p=plot!(solutions[j].t, [solutions[j].u[i][1] for i in 1:length(solutions[j].t)], labels="", color="blue", legend=:left, title="Exponential Model w/ Stochastic and Deterministic Solutions", xaxis="Time", yaxis="Population Size", lw=0.5)
+    p=plot!(solutions[j].t, [solutions[j].u[i][1] for i in 1:length(solutions[j].t)], labels="", color="blue", legend=:left, title="Exponential Model w/ Stochastic and Deterministic Solutions", lw=0.2)
     display(p)
 end
 oprobe = ODEProblem(exponential_model, u0, tspan, p)
 osole = solve(oprobe)
-plot!(osole, labels="Deterministic Solution", color="black", lw=2)
-
-
-nsins=100
-prob = DiscreteProblem(u0, tspan ,p)
-jump_prob = JumpProblem(prob,Direct(),logistic_model)
-solutions =[solve(jump_prob,FunctionMap()) for i in 1:nsins]
-plot(solutions[1].t, [solutions[1].u[i][1] for i in 1:length(solutions[1].t)], labels="Cells", color= "blue", xaxis="Time", yaxis="Population Size", title="Discrete Stochastic Populations Dynamics", lw=0.3)
-plot!(solutions[1].t,[solutions[1].u[i][2] for i in 1:length(solutions[1].t)], labels="Nutrients", color="red", lw=0.3)
-for j in 2:nsins
-    p=plot!(solutions[j].t, [solutions[j].u[i][1] for i in 1:length(solutions[j].t)], labels="", color= "blue", lw=0.3)
-    q=plot!(solutions[j].t,[solutions[j].u[i][2] for i in 1:length(solutions[j].t)], labels="", color="red", lw=0.3)
-    display(p)
-    display(q)
-end
-oprob = ODEProblem(logistic_model, u0, tspan, p)
-osol = solve(oprob)
-Kbio = nutrient0+cell0
-n = [((Kbio)*(cell0*exp(r*t)))/((Kbio)+(cell0*(exp(r*t)-1))) for t in osol.t]
-plot!(osol.t, [osol.u[i][1] for i in 1:length(osol.t)], labels="Deterministic Non-Discrete Solution", color="black", lw=2)
-plot!(osol.t, [osol.u[i][2] for i in 1:length(osol.t)], labels="", color="black", legend=:right, lw=2)
+plot!(osole, labels="Deterministic Solution", xaxis="Time", yaxis="Population Size",color="black", lw=2)
 
 ######################################################################################################################
 
@@ -183,12 +163,14 @@ bd_model = @reaction_network bd begin
   mu, cell  --> null
 end lambda mu
 
-lambda = 0.8
-mu= 0.5
-cell0 = 5.0
+lambda = 2.0
+#lambda = 0.8
+mu= 1.5
+#mu= 0.5
+cell0 = 100.0
 null0 = 0.0
 
-tspan = (0.0,10.0)
+tspan = (0.0,5.0)
 p =  (lambda, mu)
 u0 = [cell0, null0]
 
@@ -205,6 +187,45 @@ solbd = solve(jump_prob,FunctionMap())
 #plot(solbd)
 plot!(solbd.t, [solbd.u[i][1] for i in 1:length(solbd.t)], labels="Cells", color= "blue")
 plot!(solbd.t, [solbd.u[i][2] for i in 1:length(solbd.t)], labels="Dead Cells", color="red", legend=:left, title="Birth-Death Model w/ Deterministic and Stochastic Solutions", xaxis="Time", yaxis="Popuplation Size")
+
+
+nsins=100
+probbd = DiscreteProblem(u0, tspan ,p)
+jump_prob = JumpProblem(probbd,Direct(),bd_model)
+solutions =[solve(jump_prob,FunctionMap()) for i in 1:nsins]
+plot(solutions[1].t, [solutions[1].u[i][1] for i in 1:length(solutions[1].t)], labels="Cells", color= "blue", xaxis="Time", yaxis="Population Size", title="Discrete Stochastic Populations Dynamics", lw=0.3)
+for j in 2:nsins
+    p=plot!(solutions[j].t, [solutions[j].u[i][1] for i in 1:length(solutions[j].t)], labels="", color= "blue", lw=0.2)
+    q=plot!(solutions[j].t,[solutions[j].u[i][2] for i in 1:length(solutions[j].t)], labels="", color="red", lw=0.2)
+    display(p)
+    display(q)
+end
+oprobbd = ODEProblem(bd_model, u0, tspan, p)
+osolbd = solve(oprobbd, reltol=1e-10,abstol=1e-10)
+plot!(osolbd.t, [osolbd.u[i][1] for i in 1:length(osolbd.t)], labels="Deterministic Solution", color="black", lw=3)
+plot!(osolbd.t, [osolbd.u[i][2] for i in 1:length(osolbd.t)], labels="", color="black", legend=:left, lw=3, title="Birth-Death Model Showing Stochastic Behavior")
+
+
+
+
+
+
+nsins=10
+probmtdna = DiscreteProblem(u0, tspan ,p)
+jump_prob = JumpProblem(probmtdna,Direct(),mtdna_model)
+solutions =[solve(jump_prob,FunctionMap()) for i in 1:nsins]
+plot(solutions[1].t, [solutions[1].u[i][1] for i in 1:length(solutions[1].t)], labels="Wildtype", color= "blue", xaxis="Time", yaxis="Population Size", title="mtDNA Populations Dynamics", lw=0.3)
+plot!(solutions[1].t,[solutions[1].u[i][2] for i in 1:length(solutions[2].t)], labels="Mutant", color="red", lw=0.3)
+for j in 2:nsins
+    p=plot!(solutions[j].t, [solutions[j].u[i][1] for i in 1:length(solutions[j].t)], labels="", color= "blue", lw=0.3)
+    q=plot!(solutions[j].t,[solutions[j].u[i][3] for i in 1:length(solutions[j].t)], labels="", color="red", lw=0.3)
+    display(p)
+    display(q)
+end
+oprobmtdna = ODEProblem(mtdna_model, u0, tspan, p)
+osolmtdna = solve(oprobmtdna)
+plot!(osolmtdna.t, [osolmtdna.u[i][1] for i in 1:length(osolmtdna.t)], labels="Deterministic Continuous Solution", color="black", lw=2)
+plot!(osolmtdna.t, [osolmtdna.u[i][3] for i in 1:length(osolmtdna.t)], labels="", color="black", legend=:right, lw=2)
 
 ################################################################################################################################
 
