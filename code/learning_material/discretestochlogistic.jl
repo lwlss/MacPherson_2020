@@ -85,9 +85,9 @@ exponential_model = @reaction_network exponential begin
 end r
 
 r = 2.0
-cell0 = 1.0
+cell0 = 10.0
 
-tspan = (0.0,1.0)
+tspan = (0.0,100.0)
 p = (r)
 u0 = [cell0]
 
@@ -101,13 +101,13 @@ sole = solve(jump_prob,FunctionMap())
 #plot(sole)
 plot!(sole, title="Deterministic and Stochastic Exponential Model", xaxis="Time", yaxis="Popuplation Size", legend=:left, lw=2, labels="Stochastic Solution")
 
-nsins=10
+nsims=100
 probe = DiscreteProblem(u0, tspan ,p)
 jump_prob = JumpProblem(probe,Direct(),exponential_model)
-solutions =[solve(jump_prob,FunctionMap()) for i in 1:nsins]
-plot(solutions[1].t, [solutions[1].u[i][1] for i in 1:length(solutions[1].t)], labels="")
-for j in 2:nsins
-    p=plot!(solutions[1].t, [solutions[1].u for i in 1:length(solutions[1].t)], labels="")
+solutions =[solve(jump_prob,FunctionMap()) for i in 1:nsims]
+plot(solutions[1].t, [solutions[1].u[i][1] for i in 1:length(solutions[1].t)], labels="Cells", color="blue")
+for j in 2:nsims
+    p=plot!(solutions[j].t, [solutions[j].u[i][1] for i in 1:length(solutions[j].t)], labels="", color="blue", legend=:left, title="Exponential Model w/ Stochastic and Deterministic Solutions", xaxis="Time", yaxis="Population Size", lw=0.5)
     display(p)
 end
 oprobe = ODEProblem(exponential_model, u0, tspan, p)

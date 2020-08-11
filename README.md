@@ -19,3 +19,7 @@
 #### [Week Three Report](https://github.com/lwlss/MacPherson_2020/blob/master/markdown/week_review/week3.md)
 
 ![Week3](images/lotka_volterra.png)
+
+#### [Week Four Report](https://github.com/lwlss/MacPherson_2020/blob/master/markdown/week_review/week4.md)
+
+![Week4](images/dspd_2000.png)
