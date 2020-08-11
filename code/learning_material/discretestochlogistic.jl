@@ -207,27 +207,6 @@ plot!(osolbd.t, [osolbd.u[i][1] for i in 1:length(osolbd.t)], labels="Determinis
 plot!(osolbd.t, [osolbd.u[i][2] for i in 1:length(osolbd.t)], labels="", color="black", legend=:left, lw=3, title="Birth-Death Model Showing Stochastic Behavior")
 
 
-
-
-
-
-nsins=10
-probmtdna = DiscreteProblem(u0, tspan ,p)
-jump_prob = JumpProblem(probmtdna,Direct(),mtdna_model)
-solutions =[solve(jump_prob,FunctionMap()) for i in 1:nsins]
-plot(solutions[1].t, [solutions[1].u[i][1] for i in 1:length(solutions[1].t)], labels="Wildtype", color= "blue", xaxis="Time", yaxis="Population Size", title="mtDNA Populations Dynamics", lw=0.3)
-plot!(solutions[1].t,[solutions[1].u[i][2] for i in 1:length(solutions[2].t)], labels="Mutant", color="red", lw=0.3)
-for j in 2:nsins
-    p=plot!(solutions[j].t, [solutions[j].u[i][1] for i in 1:length(solutions[j].t)], labels="", color= "blue", lw=0.3)
-    q=plot!(solutions[j].t,[solutions[j].u[i][3] for i in 1:length(solutions[j].t)], labels="", color="red", lw=0.3)
-    display(p)
-    display(q)
-end
-oprobmtdna = ODEProblem(mtdna_model, u0, tspan, p)
-osolmtdna = solve(oprobmtdna)
-plot!(osolmtdna.t, [osolmtdna.u[i][1] for i in 1:length(osolmtdna.t)], labels="Deterministic Continuous Solution", color="black", lw=2)
-plot!(osolmtdna.t, [osolmtdna.u[i][3] for i in 1:length(osolmtdna.t)], labels="", color="black", legend=:right, lw=2)
-
 ################################################################################################################################
 
 # What is the difference between the birth-death model and the exponential model?
@@ -308,13 +287,99 @@ plot(osolmtdna.t, [osolmtdna.u[i][1] for i in 1:length(osolmtdna.t)], labels="Wi
 plot!(osolmtdna.t, [osolmtdna.u[i][3] for i in 1:length(osolmtdna.t)], labels="Mutant", color="red")
 plot!(osolmtdna.t, [osolmtdna.u[i][1]+osolmtdna.u[i][3] for i in 1:length(osolmtdna.t)], labels="Total", color="black")
 
-probmtdna = DiscreteProblem(u0, tspan ,p)
-jump_prob = JumpProblem(probmtdna,Direct(),mtdna_model)
-solmtdna = solve(jump_prob,FunctionMap())
+using DiffEqBiological
+using DifferentialEquations
+using Plots
+using Colors
+
+mtdna_model = @reaction_network mtdna begin
+  b, wildtype --> 2wildtype
+  d, wildtype  --> null
+  bmut, mut --> 2mut
+  dmut, mut --> null
+  m, wildtype --> wildtype + mut
+  # can we have wildtype --> 2mut
+end b d bmut dmut m
+
+# parameter values
+
+b = 0.001875*365
+d = 0.001875*365
+bmut = 0.001875*365
+dmut = 0.001875*365
+m = (1e-5)*365
+
+# initial conditions
+
+wildtype0 = 100.0
+mut0 = 10.0
+null0 = 0.0
+dummy0 = 1.0
+tspan= (0.0, 100.0)
+p = (b,d,bmut,dmut,m)
+u0 = [wildtype0, mut0, null0]
+
+sim_to_tot2 = function(res, totmax, b_small, b_big, replicative_advantage)
+  u0 = res.u[end]
+  tot_mtDNA0 = u0[1] + u0[3]
+  pnew = collect(p)
+  if tot_mtDNA0 >= totmax
+    pnew[1] = b_small
+    pnew[3] = b_small * replicative_advantage
+  else
+    pnew[1] = b_big
+    pnew[3] = b_big * replicative_advantage
+  end
+  pnewer = (pnew...,)
+  probmtdna = DiscreteProblem(u0, tspan ,p)
+  jump_prob = JumpProblem(probmtdna,Direct(),mtdna_model)
+  solmtdna = solve(jump_prob,FunctionMap())
+  totmtDNA = [solmtdna.u[i][1] + solmtdna.u[i][3] for i in 1:length(solmtdna.t)];
+  triggered = [t>=totmax for t in totmtDNA];
+  lastres = findfirst(triggered)-1;
+  times = [t for t in solmtdna.t[1:lastres]]
+  species = [u for u in solmtdna.u[1:lastres]]
+  res = (t = times, u = species)
+  return(res)
+end
+
+res = (t = [0.0], u = [u0])
+current_time = res.t[1]
+allres = []
+while current_time <= tspan[2]
+  global current_time, allres, b
+  resnew = sim_to_tot2(res, 105.0, 0.0, b, 1.0)
+  ttotal = [t + current_time for t in resnew.t]
+  current_time = ttotal[end]
+  updatedres = (t=ttotal, u=resnew.u)
+  push!(allres,updatedres)
+end
+
+times = collect(Iterators.flatten([res.t for res in allres]))
+species = collect(Iterators.flatten([res.u for res in allres]))
+solmtdna = (t=times,u=species)
+
 plot(solmtdna.t, [solmtdna.u[i][1] for i in 1:length(solmtdna.t)], labels="Wildtype", color= "blue")
 plot!(solmtdna.t, [solmtdna.u[i][3] for i in 1:length(solmtdna.t)], labels="Mutant", color="red")
-plot!(solmtdna.t, [solmtdna.u[i][1] + solmtdna.u[i][3] for i in 1:length(solmtdna.t)], labels="Total", color="black")
+plot!(solmtdna.t, [solmtdna.u[i][1] + solmtdna.u[i][3] for i in 1:length(solmtdna.t)], labels="Total", color="black", legend=:outerright, title="mtDNA Population Dynamics Within a Cell", xaxis="Time (Years)", yaxis="Population Size")
 
+
+nsins=10
+probmtdna = DiscreteProblem(u0, tspan ,p)
+jump_prob = JumpProblem(probmtdna,Direct(),mtdna_model)
+solutions =[solve(jump_prob,FunctionMap()) for i in 1:nsins]
+plot(solutions[1].t, [solutions[1].u[i][1] for i in 1:length(solutions[1].t)], labels="Wildtype", color= "blue", xaxis="Time", yaxis="Population Size", title="mtDNA Populations Dynamics", lw=0.3)
+plot!(solutions[1].t,[solutions[1].u[i][2] for i in 1:length(solutions[2].t)], labels="Mutant", color="red", lw=0.3)
+for j in 2:nsins
+    p=plot!(solutions[j].t, [solutions[j].u[i][1] for i in 1:length(solutions[j].t)], labels="", color= "blue", lw=0.3)
+    q=plot!(solutions[j].t,[solutions[j].u[i][3] for i in 1:length(solutions[j].t)], labels="", color="red", lw=0.3)
+    display(p)
+    display(q)
+end
+oprobmtdna = ODEProblem(mtdna_model, u0, tspan, p)
+osolmtdna = solve(oprobmtdna)
+plot!(osolmtdna.t, [osolmtdna.u[i][1] for i in 1:length(osolmtdna.t)], labels="Deterministic Continuous Solution", color="black", lw=2)
+plot!(osolmtdna.t, [osolmtdna.u[i][3] for i in 1:length(osolmtdna.t)], labels="", color="black", legend=:right, lw=2)
 
 
 # What happens if a cells is born with no mutations?

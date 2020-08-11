@@ -125,7 +125,7 @@ This trend can be seen even more clearly by both increasing the initial populati
 
 ### Exponential Model
 
-The next model I created was one that I had also previous made in a different format, the exponential model. This model is a bit more simple that the logistic model. It wrote it like this:
+The next model I created was one that I had also previous made in a different format, the exponential model. This model is a bit more simple that the logistic model. It wrote it as a biochemical reaction network like this:
 
 ```julia
 exponential_model = @reaction_network exponential begin
@@ -156,6 +156,31 @@ plot!(sole, title="Deterministic and Stochastic Exponential Model", xaxis="Time"
 ![ds_exponential](../../images/ds_exponential.png)
 
 As you can see, just as with the discrete logistic model, this discrete stochastic solution of the exponential model is jagged and step like as we would expect. If I was to plot this graph again, it would plot the same blue line but a different, potentially drastically different, orange line. This again is due the deterministic and stochastic nature of each solution of the model.
+
+When increasing the rate of reproduction, initial number of cells and plotting multiple iterations of the stochastic solution, it becomes clear that although fundamentally random, the stochastic solution still follows the same trends and the deterministic one.
+
+I wrote the following code to illustrate this:
+
+```julia
+nsims=100
+probe = DiscreteProblem(u0, tspan ,p)
+jump_prob = JumpProblem(probe,Direct(),exponential_model)
+solutions =[solve(jump_prob,FunctionMap()) for i in 1:nsims]
+plot(solutions[1].t, [solutions[1].u[i][1] for i in 1:length(solutions[1].t)], labels="Cells", color="blue", lw=0.2)
+for j in 2:nsims
+    p=plot!(solutions[j].t, [solutions[j].u[i][1] for i in 1:length(solutions[j].t)], labels="", color="blue", legend=:left, title="Exponential Model w/ Stochastic and Deterministic Solutions", lw=0.2)
+    display(p)
+end
+oprobe = ODEProblem(exponential_model, u0, tspan, p)
+osole = solve(oprobe)
+plot!(osole, labels="Deterministic Solution", xaxis="Time", yaxis="Population Size",color="black", lw=2)
+```
+
+It then plotted this graph:
+
+![expo2000](../../images/exponential_trends.png)
+
+In the above example the blue lines, labelled "cells" are iterations of the stochastic solution. It can be seen that although there is distinct variation from the continuous solution, the stochastic solution follows the same trends as it.
 
 ### Lotka-Volterra Model
 
@@ -250,7 +275,34 @@ plot!(solbd.t, [solbd.u[i][1] for i in 1:length(solbd.t)], labels="Cells", color
 plot!(solbd.t, [solbd.u[i][2] for i in 1:length(solbd.t)], labels="Dead Cells", color="red", legend=:left, title="Birth-Death Model w/ Deterministic and Stochastic Solutions", xaxis="Time", yaxis="Popuplation Size")
 ```
 
+As I did with the logistic and exponential models, I also iterated many different stochastic solutions and plotted them together to show the overall trends they form.
 
+To do so with the birth-death model, I re-used the same code as with the others, altering it slightly:
+
+```julia
+nsins=100
+probbd = DiscreteProblem(u0, tspan ,p)
+jump_prob = JumpProblem(probbd,Direct(),bd_model)
+solutions =[solve(jump_prob,FunctionMap()) for i in 1:nsins]
+plot(solutions[1].t, [solutions[1].u[i][1] for i in 1:length(solutions[1].t)], labels="Cells", color= "blue", xaxis="Time", yaxis="Population Size", title="Discrete Stochastic Populations Dynamics", lw=0.3)
+plot!(solutions[1].t,[solutions[1].u[i][2] for i in 1:length(solutions[1].t)], labels="Dead Cells", color="red", lw=0.2)
+for j in 2:nsins
+    p=plot!(solutions[j].t, [solutions[j].u[i][1] for i in 1:length(solutions[j].t)], labels="", color= "blue", lw=0.2)
+    q=plot!(solutions[j].t,[solutions[j].u[i][2] for i in 1:length(solutions[j].t)], labels="", color="red", lw=0.2)
+    display(p)
+    display(q)
+end
+oprobbd = ODEProblem(bd_model, u0, tspan, p)
+osolbd = solve(oprobbd, reltol=1e-10,abstol=1e-10)
+plot!(osolbd.t, [osolbd.u[i][1] for i in 1:length(osolbd.t)], labels="Deterministic Solution", color="black", lw=3)
+plot!(osolbd.t, [osolbd.u[i][2] for i in 1:length(osolbd.t)], labels="", color="black", legend=:left, lw=3, title="Birth-Death Model Showing Stochastic Behavior")
+```
+
+This plotted the following graph:
+
+![bdtrends](../../images/bd_trends.png)
+
+Again, it can be seen that the stochastic solution follows the same trends as the deterministic solution.
 
 ## Mitochondria, mtDNA and Clonal Expansion
 
