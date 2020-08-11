@@ -243,40 +243,60 @@ tspan= (0.0, 100.0)
 p = (b,d,bmut,dmut,m)
 u0 = [wildtype0, mut0, null0]
 
-sim_to_tot = function(res, totmax = 105.0)
-  u0 = res["species"][end]
-  oprobmtdna = ODEProblem(mtdna_model, u0, tspan, p)#, callback=cset)
+sim_to_tot = function(res, totmax, b_small, b_big, replicative_advantage)
+  u0 = res.u[end]
+  tot_mtDNA0 = u0[1] + u0[3]
+  pnew = collect(p)
+  if tot_mtDNA0 >= totmax
+    pnew[1] = b_small
+    pnew[3] = b_small * replicative_advantage
+  else
+    pnew[1] = b_big
+    pnew[3] = b_big * replicative_advantage
+  end
+  pnewer = (pnew...,)
+  oprobmtdna = ODEProblem(mtdna_model, u0, tspan, pnewer)#, callback=cset)
   osolmtdna = solve(oprobmtdna)
   totmtDNA = [osolmtdna.u[i][1] + osolmtdna.u[i][3] for i in 1:length(osolmtdna.t)];
   triggered = [t>=totmax for t in totmtDNA];
   lastres = findfirst(triggered)-1;
   times = [t for t in osolmtdna.t[1:lastres]]
   species = [u for u in osolmtdna.u[1:lastres]]
-  res = Dict("times" => times, "species" => species)
+  res = (t = times, u = species)
   return(res)
 end
 
-res = Dict("times" => [0.0], "species" => [u0])
-current_time = 0.0
+res = (t = [0.0], u = [u0])
+current_time = res.t[1]
 allres = []
 while current_time <= tspan[2]
-  resnew = sim_to_tot(res, 105.0)
-  current_time = current_time + resnew["times"][end]
-  append!(allres,resnew)
+  global current_time, allres, b
+  resnew = sim_to_tot(res, 105.0, 0.0, b, 1.0)
+  ttotal = [t + current_time for t in resnew.t]
+  current_time = ttotal[end]
+  updatedres = (t=ttotal, u=resnew.u)
+  push!(allres,updatedres)
 end
 
-
-
-
-
+times = collect(Iterators.flatten([res.t for res in allres]))
+species = collect(Iterators.flatten([res.u for res in allres]))
+osolmtdna = (t=times,u=species)
 
 plot(osolmtdna.t, [osolmtdna.u[i][1] for i in 1:length(osolmtdna.t)], labels="Wildtype", color= "blue")
 plot!(osolmtdna.t, [osolmtdna.u[i][3] for i in 1:length(osolmtdna.t)], labels="Mutant", color="red")
-plot!(osolmtdna.t, totmtDNA, labels="Total", color="black")
+plot!(osolmtdna.t, [osolmtdna.u[i][1]+osolmtdna.u[i][3] for i in 1:length(osolmtdna.t)], labels="Total", color="black")
 
-probmtdna = DiscreteProblem(u0, tspan ,p, callback=cset)
+probmtdna = DiscreteProblem(u0, tspan ,p)
 jump_prob = JumpProblem(probmtdna,Direct(),mtdna_model)
 solmtdna = solve(jump_prob,FunctionMap())
 plot(solmtdna.t, [solmtdna.u[i][1] for i in 1:length(solmtdna.t)], labels="Wildtype", color= "blue")
 plot!(solmtdna.t, [solmtdna.u[i][3] for i in 1:length(solmtdna.t)], labels="Mutant", color="red")
 plot!(solmtdna.t, [solmtdna.u[i][1] + solmtdna.u[i][3] for i in 1:length(solmtdna.t)], labels="Total", color="black")
+
+
+
+# What happens if a cells is born with no mutations?
+
+# What happens if a cell inherits a lot of mutations?  70%?
+
+# What happens in both of the scenarios above if bmut > b?
