@@ -194,6 +194,7 @@ probbd = DiscreteProblem(u0, tspan ,p)
 jump_prob = JumpProblem(probbd,Direct(),bd_model)
 solutions =[solve(jump_prob,FunctionMap()) for i in 1:nsins]
 plot(solutions[1].t, [solutions[1].u[i][1] for i in 1:length(solutions[1].t)], labels="Cells", color= "blue", xaxis="Time", yaxis="Population Size", title="Discrete Stochastic Populations Dynamics", lw=0.3)
+plot!(solutions[1].t,[solutions[1].u[i][2] for i in 1:length(solutions[1].t)], labels="Dead Cells", color="red", lw=0.2)
 for j in 2:nsins
     p=plot!(solutions[j].t, [solutions[j].u[i][1] for i in 1:length(solutions[j].t)], labels="", color= "blue", lw=0.2)
     q=plot!(solutions[j].t,[solutions[j].u[i][2] for i in 1:length(solutions[j].t)], labels="", color="red", lw=0.2)
