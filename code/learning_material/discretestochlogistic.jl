@@ -214,10 +214,10 @@ using DiffEqBiological
 using DifferentialEquations
 using Plots
 using Colors
-using ParameterizedFunctions
+#using ParameterizedFunctions
 
 mtdna_model = @reaction_network mtdna begin
-  ifelse(wildtype+mut > 100, 0, b), wildtype --> 2wildtype
+  b, wildtype --> 2wildtype
   d, wildtype  --> null
   bmut, mut --> 2mut
   dmut, mut --> null
@@ -225,41 +225,56 @@ mtdna_model = @reaction_network mtdna begin
   # can we have wildtype --> 2mut
 end b d bmut dmut m
 
-#function condition(u,t,integrator)
-#    u[1]+u[3]
-#end
-
-#function affect!(integrator)
-#    integrator.p[1]=0
-#end
-
-#change_b=ContinuousCallback(condition,affect!)
-
 # parameter values
 
 b = 0.001875*365
 d = 0.001875*365
 bmut = 0.001875*365
 dmut = 0.001875*365
-m = (1.0e-5)*365
+m = (1e-5)*365
 
 # initial conditions
 
 wildtype0 = 100.0
 mut0 = 0.0
 null0 = 0.0
+dummy0 = 1.0
 tspan= (0.0, 100.0)
 p = (b,d,bmut,dmut,m)
 u0 = [wildtype0, mut0, null0]
 
-oprobmtdna = ODEProblem(mtdna_model, u0, tspan, p, callback=change_b)
-osolmtdna = solve(oprobmtdna)
+sim_to_tot = function(res, totmax = 105.0)
+  u0 = res["species"][end]
+  oprobmtdna = ODEProblem(mtdna_model, u0, tspan, p)#, callback=cset)
+  osolmtdna = solve(oprobmtdna)
+  totmtDNA = [osolmtdna.u[i][1] + osolmtdna.u[i][3] for i in 1:length(osolmtdna.t)];
+  triggered = [t>=totmax for t in totmtDNA];
+  lastres = findfirst(triggered)-1;
+  times = [t for t in osolmtdna.t[1:lastres]]
+  species = [u for u in osolmtdna.u[1:lastres]]
+  res = Dict("times" => times, "species" => species)
+  return(res)
+end
+
+res = Dict("times" => [0.0], "species" => [u0])
+current_time = 0.0
+allres = []
+while current_time <= tspan[2]
+  resnew = sim_to_tot(res, 105.0)
+  current_time = current_time + resnew["times"][end]
+  append!(allres,resnew)
+end
+
+
+
+
+
+
 plot(osolmtdna.t, [osolmtdna.u[i][1] for i in 1:length(osolmtdna.t)], labels="Wildtype", color= "blue")
 plot!(osolmtdna.t, [osolmtdna.u[i][3] for i in 1:length(osolmtdna.t)], labels="Mutant", color="red")
-plot!(osolmtdna.t, [osolmtdna.u[i][1] + osolmtdna.u[i][3] for i in 1:length(osolmtdna.t)], labels="Total", color="black")
+plot!(osolmtdna.t, totmtDNA, labels="Total", color="black")
 
-
-probmtdna = DiscreteProblem(u0, tspan ,p)
+probmtdna = DiscreteProblem(u0, tspan ,p, callback=cset)
 jump_prob = JumpProblem(probmtdna,Direct(),mtdna_model)
 solmtdna = solve(jump_prob,FunctionMap())
 plot(solmtdna.t, [solmtdna.u[i][1] for i in 1:length(solmtdna.t)], labels="Wildtype", color= "blue")
