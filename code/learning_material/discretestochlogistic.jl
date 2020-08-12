@@ -331,7 +331,7 @@ sim_to_tot2 = function(res, totmax, b_small, b_big, replicative_advantage)
     pnew[3] = b_big * replicative_advantage
   end
   pnewer = (pnew...,)
-  probmtdna = DiscreteProblem(u0, tspan ,p)
+  probmtdna = DiscreteProblem(u0, tspan ,pnewer)
   jump_prob = JumpProblem(probmtdna,Direct(),mtdna_model)
   solmtdna = solve(jump_prob,FunctionMap())
   totmtDNA = [solmtdna.u[i][1] + solmtdna.u[i][3] for i in 1:length(solmtdna.t)];
