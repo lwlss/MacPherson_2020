@@ -8,8 +8,10 @@
 #end b d bmut dmut m
 
 using Random
-using Plots
 using Colors
+using Plots
+theme(:juno)
+
 
 function update(t, vals)
   wt = vals[1];
@@ -23,9 +25,9 @@ function update(t, vals)
 end
 
 b = 0.001875*365
-d = 0.001875*365*0.9 # Note, slightly lower than b, so that when total is low, population grows
+d = 0.001875*365*0.86 # Note, slightly lower than b, so that when total is low, population grows
 bmut = 0.001875*365
-dmut = 0.001875*365*0.9 # Note, slightly lower than b, so that when total is low, population grows
+dmut = 0.001875*365*0.86 # Note, slightly lower than b, so that when total is low, population grows
 m = (5e-6)*365
 target = 100.0
 
@@ -47,6 +49,20 @@ end
 
 sol = (t = times, u = simres)
 
-plot(sol.t, [sol.u[i][1] for i in 1:length(sol.t)], labels="Wildtype", color= "blue")
-plot!(sol.t, [sol.u[i][2] for i in 1:length(sol.t)], labels="Mutant", color="red")
-plot!(sol.t, [sol.u[i][1]+sol.u[i][2] for i in 1:length(sol.t)], labels="Total", color="black")
+plot(sol.t, [sol.u[i][1] for i in 1:length(sol.t)], labels="Wildtype", color= "blue", lw=1.0)
+plot!(sol.t, [sol.u[i][2] for i in 1:length(sol.t)], labels="Mutant", color="red", lw=1.0)
+plot!(sol.t, [sol.u[i][1]+sol.u[i][2] for i in 1:length(sol.t)], legend=:left, labels="Total", color="white", lw=0.2, title="Low Initial Mutation Load Where b<bmut", xaxis="Time (Years)", yaxis="Population Size")
+
+plot!(sol.t, [sol.u[i][1] for i in 1:length(sol.t)], labels="", color= "blue",lw=0.4)
+plot!(sol.t, [sol.u[i][2] for i in 1:length(sol.t)], labels="", color="red", lw=0.4)
+plot!(sol.t, [sol.u[i][1]+sol.u[i][2] for i in 1:length(sol.t)], legend=:left,layout=4, labels="", color="white", lw=0.2)
+
+
+
+
+
+# What happens if a cells is born with no mutations?
+
+# What happens if a cell inherits a lot of mutations?  70%?
+
+# What happens in both of the scenarios above if bmut > b?
