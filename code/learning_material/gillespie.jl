@@ -108,6 +108,37 @@ for j in 2:nsins
     display(q)
 end
 
+nsins=10
+solutions =[sim_gillespie(;b = 0.001875*365,d = 0.001875*365*0.86,bmut = 0.001875*365,dmut = 0.001875*365*0.86,m = (5e-7)*365, target = 100.0,vals0 = [100, 0],tmax = 100.0) for i in 1:nsins]
+plot(solutions[1].t,[solutions[1].u[i][1]+solutions[1].u[i][2] for i in 1:length(solutions[1].t)], labels="Total", color="black", lw=0.2)
+for j in 2:nsins
+     y=plot!(solutions[j].t,[solutions[j].u[i][1]+solutions[j].u[i][2] for i in 1:length(solutions[j].t)], labels="", color="black", lw=0.2)
+     display(y)
+end
+
+nsins=10
+solutions =[sim_gillespie(;b = 0.001875*365,d = 0.001875*365*0.86,bmut = 0.001875*365,dmut = 0.001875*365*0.86,m = (5e-7)*365, target = 100.0,vals0 = [100, 0],tmax = 100.0) for i in 1:nsins]
+plot(solutions[1].t,[solutions[1].u[i][1]+solutions[1].u[i][2] for i in 1:length(solutions[1].t)], labels="Total", color="black", lw=0.2)
+plot!(solutions[1].t,[solutions[1].u[i][2]/(solutions[1].u[i][1]+solutions[1].u[i][2]) for i in 1:length(solutions[1].t)], labels="Total/Pathogenic Variant", color="red", lw=0.2)
+for j in 2:nsins
+    z=plot!(solutions[1].t,[solutions[1].u[i][2]/solutions[1].u[i][1]+solutions[1].u[i][2] for i in 1:length(solutions[1].t)], labels="", color="red", lw=0.2)
+    y=plot!(solutions[1].t,[solutions[1].u[i][1]+solutions[1].u[i][2] for i in 1:length(solutions[1].t)], labels="", color="black", lw=0.2, legend=:left)
+    x=plot(z,y,layout=(1,2))
+    display(x)
+end
+
+
+nsins=10
+solutions =[sim_gillespie(;b = 0.001875*365,d = 0.001875*365*0.86,bmut = 0.001875*365,dmut = 0.001875*365*0.86,m = (5e-7)*365, target = 100.0,vals0 = [30, 70],tmax = 100.0) for i in 1:nsins]
+plot(solutions[1].t,[solutions[1].u[i][2]/(solutions[1].u[i][1]+solutions[1].u[i][2]) for i in 1:length(solutions[1].t)], labels="Pathogenic-variant/Total population", color="red", lw=0.2)
+for j in 2:nsins
+    z=plot!(solutions[j].t,[solutions[j].u[i][2]/(solutions[j].u[i][1]+solutions[j].u[i][2]) for i in 1:length(solutions[j].t)], labels="", color="red", lw=0.2, legend=:left)
+    y=
+    display(z)
+end
+
+
+
 # What happens if a cells is born with no mutations?
 
 # What happens if a cell inherits a lot of mutations?  70%?
