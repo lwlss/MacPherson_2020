@@ -95,47 +95,32 @@ end
 
 sol = sim_gillespie(;b = 0.001875*365,d = 0.001875*365*0.86,bmut = 0.001875*365,dmut = 0.001875*365*0.86,m = (5e-6)*365, target = 100.0,vals0 = [100, 0],tmax = 100.0)
 
-
-nsins=10
-solutions =[sim_gillespie(;b = 0.001875*365,d = 0.001875*365*0.86,bmut = 0.001875*365,dmut = 0.001875*365*0.86,m = (5e-7)*365, target = 100.0,vals0 = [100, 0],tmax = 100.0) for i in 1:nsins]
+nsims=10
+solutions =[sim_gillespie(;b = 0.001875*365,d = 0.001875*365*0.86,bmut = 0.001875*365,dmut = 0.001875*365*0.86,m = (5e-7)*365, target = 100.0,vals0 = [100, 0],tmax = 100.0) for i in 1:nsims]
 plot(solutions[1].t, [solutions[1].u[i][1] for i in 1:length(solutions[1].t)], labels="Wild-type", color= "blue", xaxis="Time", yaxis="Population Size", title="Discrete Stochastic Populations Dynamics", lw=0.2)
 plot!(solutions[1].t,[solutions[1].u[i][2] for i in 1:length(solutions[1].t)], labels="Pathogenic variant", color="red", lw=0.2)
 plot!(solutions[1].t,[solutions[1].u[i][1]+solutions[1].u[i][2] for i in 1:length(solutions[1].t)], labels="Total", color="black", lw=0.2)
-for j in 2:nsins
+for j in 2:nsims
     p=plot!(solutions[j].t, [solutions[j].u[i][1] for i in 1:length(solutions[j].t)], labels="", color= "blue", lw=0.2)
     q=plot!(solutions[j].t,[solutions[j].u[i][2] for i in 1:length(solutions[j].t)], labels="", color="red", lw=0.2)
     y=plot!(solutions[j].t,[solutions[j].u[i][1]+solutions[j].u[i][2] for i in 1:length(solutions[j].t)], labels="", color="black", lw=0.2)
     display(q)
 end
 
-nsins=10
-solutions =[sim_gillespie(;b = 0.001875*365,d = 0.001875*365*0.86,bmut = 0.001875*365,dmut = 0.001875*365*0.86,m = (5e-7)*365, target = 100.0,vals0 = [100, 0],tmax = 100.0) for i in 1:nsins]
-plot(solutions[1].t,[solutions[1].u[i][1]+solutions[1].u[i][2] for i in 1:length(solutions[1].t)], labels="Total", color="black", lw=0.2)
-for j in 2:nsins
-     y=plot!(solutions[j].t,[solutions[j].u[i][1]+solutions[j].u[i][2] for i in 1:length(solutions[j].t)], labels="", color="black", lw=0.2)
-     display(y)
+nsims=100
+transparency = 0.5
+thick = 0.2
+solutions =[sim_gillespie(;b = 0.001875*365,d = 0.001875*365*0.86,bmut = 0.001875*365,dmut = 0.001875*365*0.86,m = (5e-7)*365, target = 100.0,vals0 = [100, 0],tmax = 100.0) for i in 1:nsims]
+panelA = plot(solutions[1].t,[solutions[1].u[i][1]+solutions[1].u[i][2] for i in 1:length(solutions[1].t)], labels="mtDNA copy number", color=RGBA(0,0,0,transparency), lw=thick)
+for j in 2:nsims
+    plot!(solutions[j].t,[solutions[j].u[i][1]+solutions[j].u[i][2] for i in 1:length(solutions[j].t)], labels="", color=RGBA(0,0,0,transparency), lw=thick, legend=:left)
+end
+panelB = plot(solutions[1].t,[solutions[1].u[i][2]/(solutions[1].u[i][1]+solutions[1].u[i][2]) for i in 1:length(solutions[1].t)], labels="Pathogenic variant load", color=RGBA(1,0,0,transparency), lw=thick, legend=:left)
+for j in 2:nsims
+    plot!(solutions[j].t,[solutions[j].u[i][2]/(solutions[j].u[i][1]+solutions[j].u[i][2]) for i in 1:length(solutions[j].t)], labels="", color=RGBA(1,0,0,transparency), lw=thick, legend=:left)
 end
 
-nsins=10
-solutions =[sim_gillespie(;b = 0.001875*365,d = 0.001875*365*0.86,bmut = 0.001875*365,dmut = 0.001875*365*0.86,m = (5e-7)*365, target = 100.0,vals0 = [100, 0],tmax = 100.0) for i in 1:nsins]
-plot(solutions[1].t,[solutions[1].u[i][1]+solutions[1].u[i][2] for i in 1:length(solutions[1].t)], labels="Total", color="black", lw=0.2)
-plot!(solutions[1].t,[solutions[1].u[i][2]/(solutions[1].u[i][1]+solutions[1].u[i][2]) for i in 1:length(solutions[1].t)], labels="Total/Pathogenic Variant", color="red", lw=0.2)
-for j in 2:nsins
-    z=plot!(solutions[1].t,[solutions[1].u[i][2]/solutions[1].u[i][1]+solutions[1].u[i][2] for i in 1:length(solutions[1].t)], labels="", color="red", lw=0.2)
-    y=plot!(solutions[1].t,[solutions[1].u[i][1]+solutions[1].u[i][2] for i in 1:length(solutions[1].t)], labels="", color="black", lw=0.2, legend=:left)
-    x=plot(z,y,layout=(1,2))
-    display(x)
-end
-
-
-nsins=10
-solutions =[sim_gillespie(;b = 0.001875*365,d = 0.001875*365*0.86,bmut = 0.001875*365,dmut = 0.001875*365*0.86,m = (5e-7)*365, target = 100.0,vals0 = [30, 70],tmax = 100.0) for i in 1:nsins]
-plot(solutions[1].t,[solutions[1].u[i][2]/(solutions[1].u[i][1]+solutions[1].u[i][2]) for i in 1:length(solutions[1].t)], labels="Pathogenic-variant/Total population", color="red", lw=0.2)
-for j in 2:nsins
-    z=plot!(solutions[j].t,[solutions[j].u[i][2]/(solutions[j].u[i][1]+solutions[j].u[i][2]) for i in 1:length(solutions[j].t)], labels="", color="red", lw=0.2, legend=:left)
-    y=
-    display(z)
-end
+plot(panelA,panelB,layout=(1,2))
 
 
 
