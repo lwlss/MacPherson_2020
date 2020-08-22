@@ -95,17 +95,6 @@ end
 
 sol = sim_gillespie(;b = 0.001875*365,d = 0.001875*365*0.86,bmut = 0.001875*365,dmut = 0.001875*365*0.86,m = (5e-6)*365, target = 100.0,vals0 = [100, 0],tmax = 100.0)
 
-nsims=10
-solutions =[sim_gillespie(;b = 0.001875*365,d = 0.001875*365*0.86,bmut = 0.001875*365,dmut = 0.001875*365*0.86,m = (5e-7)*365, target = 100.0,vals0 = [100, 0],tmax = 100.0) for i in 1:nsims]
-plot(solutions[1].t, [solutions[1].u[i][1] for i in 1:length(solutions[1].t)], labels="Wild-type", color= "blue", xaxis="Time", yaxis="Population Size", title="Discrete Stochastic Populations Dynamics", lw=0.2)
-plot!(solutions[1].t,[solutions[1].u[i][2] for i in 1:length(solutions[1].t)], labels="Pathogenic variant", color="red", lw=0.2)
-plot!(solutions[1].t,[solutions[1].u[i][1]+solutions[1].u[i][2] for i in 1:length(solutions[1].t)], labels="Total", color="black", lw=0.2)
-for j in 2:nsims
-    p=plot!(solutions[j].t, [solutions[j].u[i][1] for i in 1:length(solutions[j].t)], labels="", color= "blue", lw=0.2)
-    q=plot!(solutions[j].t,[solutions[j].u[i][2] for i in 1:length(solutions[j].t)], labels="", color="red", lw=0.2)
-    y=plot!(solutions[j].t,[solutions[j].u[i][1]+solutions[j].u[i][2] for i in 1:length(solutions[j].t)], labels="", color="black", lw=0.2)
-    display(q)
-end
 
 nsims=150
 transparency = 0.6
