@@ -34,6 +34,8 @@ function sim_gillespie(;b,d,bmut,dmut,m,target,vals0,tmax)
     return(sol)
 end
 
+# The below code is used to plot multiple iterations of the model on each graph.
+
 nsims=150
 transparency = 0.6
 thick = 0.25
@@ -46,5 +48,16 @@ panelB = plot(solutions[1].t,[solutions[1].u[i][2]/(solutions[1].u[i][1]+solutio
 for j in 2:nsims
     plot!(solutions[j].t,[solutions[j].u[i][2]/(solutions[j].u[i][1]+solutions[j].u[i][2]) for i in 1:length(solutions[j].t)], labels="", color=RGBA(1,0,0,transparency), lw=thick, legend=:bottomright, xaxis="Time (Years)", yaxis="Pathogenic variant over mtDNA copy number")
 end
+
+plot(panelA,panelB,layout=(1,2))
+
+# The below code is used to plot only a single iteration of the model on each graph.
+
+nsims=1
+transparency = 1.0
+thick = 0.8
+solutions =[sim_gillespie(;b = 0.001875*365,d = 0.001875*365*0.86,bmut = 0.001875*365*1.1,dmut = 0.001875*365*0.86,m = (5e-7)*365, target = 100.0,vals0 = [30, 70],tmax = 100.0) for i in 1:nsims]
+panelA = plot(solutions[1].t,[solutions[1].u[i][1]+solutions[1].u[i][2] for i in 1:length(solutions[1].t)], labels="mtDNA copy number", color=RGBA(0,0,0,transparency), lw=thick, legend=:bottomleft,  xaxis="Time (Years)", yaxis="Population Size", title="High initial pathogenic variant load where b<bmut", title_location=:left)
+panelB = plot(solutions[1].t,[solutions[1].u[i][2]/(solutions[1].u[i][1]+solutions[1].u[i][2]) for i in 1:length(solutions[1].t)], labels="Pathogenic variant load", color=RGBA(1,0,0,transparency), lw=thick, legend=:bottomright, xaxis="Time (Years)", yaxis="Pathogenic variant over mtDNA copy number")
 
 plot(panelA,panelB,layout=(1,2))
