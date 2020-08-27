@@ -97,9 +97,9 @@ sol = sim_gillespie(;b = 0.001875*365,d = 0.001875*365*0.86,bmut = 0.001875*365,
 
 
 nsims=150
-transparency = 0.6
-thick = 0.15
-solutions =[sim_gillespie(;b = 0.001875*365,d = 0.001875*365*0.86,bmut = 0.001875*365*1.0,dmut = 0.001875*365*0.86,m = (5e-7)*365, target = 100.0,vals0 = [30, 70],tmax = 100.0) for i in 1:nsims]
+transparency = 0.4
+thick = 0.2
+solutions =[sim_gillespie(;b = 0.001875*365,d = 0.001875*365*0.86,bmut = 0.001875*365*1.0,dmut = 0.001875*365*0.86,m = (5e-7)*365, target = 100.0,vals0 = [100, 0],tmax = 100.0) for i in 1:nsims]
 panelA = plot(solutions[1].t,[solutions[1].u[i][1]+solutions[1].u[i][2] for i in 1:length(solutions[1].t)], labels="", color=RGBA(0,0,0,transparency), lw=thick)
 for j in 2:nsims
     plot!(solutions[j].t,[solutions[j].u[i][1]+solutions[j].u[i][2] for i in 1:length(solutions[j].t)], labels="", color=RGBA(0,0,0,transparency), lw=thick, legend=false, xaxis="Time (Years)", yaxis="mtDNA copy number", title="High initial pathogenic variant load where b=bmut", title_location=:left)
@@ -110,17 +110,23 @@ for j in 2:nsims
     #plot!(rand(100), lw=0)
 end
 
-plot(panelA,panelB,layout=(1,2))
+plot(panelA,panelB,layout=(1,2), fmt=:pdf)
+
+savefig("D:\\himl.pdf")
 
 
 nsims=1
 transparency = 1.0
-thick = 0.8
-solutions =[sim_gillespie(;b = 0.001875*365,d = 0.001875*365*0.86,bmut = 0.001875*365*1.1,dmut = 0.001875*365*0.86,m = (5e-7)*365, target = 100.0,vals0 = [30, 70],tmax = 100.0) for i in 1:nsims]
-panelA = plot(solutions[1].t,[solutions[1].u[i][1]+solutions[1].u[i][2] for i in 1:length(solutions[1].t)], labels="mtDNA copy number", color=RGBA(0,0,0,transparency), lw=thick, legend=false,  xaxis="Time (Years)", yaxis="Population Size", title="High initial pathogenic variant load where b<bmut", title_location=:left)
-panelB = plot(solutions[1].t,[solutions[1].u[i][2]/(solutions[1].u[i][1]+solutions[1].u[i][2]) for i in 1:length(solutions[1].t)], labels="Pathogenic variant load", color=RGBA(1,0,0,transparency), lw=thick, legend=false, xaxis="Time (Years)", yaxis="Pathogenic variant over mtDNA copy number")
+thick = 0.7
+solutions =[sim_gillespie(;b = 0.001875*365,d = 0.001875*365*0.86,bmut = 0.001875*365*1.1,dmut = 0.001875*365*0.86,m = (5e-7)*365, target = 100.0,vals0 = [100, 0],tmax = 100.0) for i in 1:nsims]
+panelC = plot(solutions[1].t,[solutions[1].u[i][1]+solutions[1].u[i][2] for i in 1:length(solutions[1].t)], labels="mtDNA copy number", color=RGBA(0,0,0,transparency), lw=thick, legend=false,  xaxis="Time (Years)", yaxis="Population Size", title="Copy Number of Cell")
+panelB = plot(solutions[1].t,[solutions[1].u[i][2] for i in 1:length(solutions[1].t)], color=RGBA(0.5,0,0.5,transparency), lw=thick, legend=false,  xaxis="Time (Years)", yaxis="Population Size", title="Mutant mtDNA")
+panelA = plot(solutions[1].t,[solutions[1].u[i][1] for i in 1:length(solutions[1].t)], color=RGBA(0,0,1,transparency), lw=thick, legend=false,  xaxis="Time (Years)", yaxis="Population Size", title="Wild-type mtDNA")
+panelD = plot(solutions[1].t,[solutions[1].u[i][2]/(solutions[1].u[i][1]+solutions[1].u[i][2]) for i in 1:length(solutions[1].t)], title="Pathogenic variant load", color=RGBA(1,0,0,transparency), lw=thick, legend=false, xaxis="Time (Years)", yaxis="Fraction Value")
 
-plot(panelA,panelB,layout=(1,2))
+plot(panelA,panelB,panelC,panelD,layout=(2,2), fmt=:pdf)
+
+savefig("D:\\4panel.pdf")
 
 
 # What happens if a cells is born with no mutations?
