@@ -4,15 +4,15 @@
 
 # Patrick MacPherson
 
-###### Sgoil Lionacleit
+#### Sgoil Lionacleit
 
 #### Project supervisors:
 
 #### Conor Lawless<sup>1</sup> <sup>&</sup> <sup>2</sup> &amp; Max Piotrowicz<sup>1</sup>
 
-###### University of Newcastle <sup>1</sup>
+#### University of Newcastle <sup>1</sup>
 
-###### North Uist Digital Technology Hub <sup>2</sup>
+#### North Uist Digital Technology Hub <sup>2</sup>
 
 ![NCU](images/mtdnaresults/Newcastle_University_logo.svg)
 
