@@ -1,4 +1,4 @@
-# Simulating mtDNA Population Dynamics in Patients with Mitochondrial Disease
+# Mathematical modelling of single cell mtDNA population dynamics
 
 ## During this project I hope to:
 
