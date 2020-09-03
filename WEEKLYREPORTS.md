@@ -1,5 +1,9 @@
 # Mathematical modelling of single cell mtDNA population dynamics
 
+## Aim
+
+To create a mathematical model which realistically simulates single cell mtDNA population dynamics.
+
 ## During this project I hope to:
 
 1. Learn how to program using the [Julia programming language](https://julialang.org/).
