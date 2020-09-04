@@ -14,9 +14,9 @@
 
 #### North Uist Digital Technology Hub <sup>2</sup>
 
-<img src="images/mtdnaresults/Newcastle_University_logo.svg" width=500, alt="NCU">
+<img src="images/mtdnaresults/Newcastle_University_logo.svg" width=400, alt="NCU">
 
-<img src="images/mtdnaresults/nudt.png" width=500, alt="NCU">
+<img src="images/mtdnaresults/nudt.png" width=400, alt="NCU">
 
 ## Abstract
 
