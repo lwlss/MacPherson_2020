@@ -143,7 +143,7 @@ In the current state of my model, it only simulates random genetic drift and rep
 ## Appendix
 
 ### GitHub & weekly reports
-Throughout my project I used GitHub to store my work and to share it with my project supervisors. The link to the GitHub repository can be found [here](https://github.com/lwlss/MacPherson_2020).  A landing page for my weekly reports can be found [here](https://github.com/lwlss/MacPherson_2020/WEEKLYREPORTS.md).
+Throughout my project I used GitHub to store my work and to share it with my project supervisors. The link to the GitHub repository can be found [here](https://github.com/lwlss/MacPherson_2020).  A landing page for my weekly reports can be found [here](https://github.com/lwlss/MacPherson_2020/blob/master/WEEKLYREPORTS.md).
 
 ### Further plots from mtDNA model
 Additionally, all of the single iteration graphs which I simulated but didn&#39;t include in the report can be found, [here](https://github.com/lwlss/MacPherson_2020/tree/master/images/mtdnaresults).
