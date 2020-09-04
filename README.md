@@ -8,15 +8,15 @@
 
 #### Project supervisors:
 
-#### Conor Lawless<sup>1</sup> <sup>&</sup> <sup>2</sup> &amp; Max Piotrowicz<sup>1</sup>
+#### Conor Lawless<sup>1,2</sup> &amp; Max Piotrowicz<sup>1</sup>
 
 #### University of Newcastle <sup>1</sup>
 
 #### North Uist Digital Technology Hub <sup>2</sup>
 
-![NCU](images/mtdnaresults/Newcastle_University_logo.svg)
+<img src="images/mtdnaresults/Newcastle_University_logo.svg" width=500, alt="NCU">
 
-![NUDT](images/mtdnaresults/nudt.png)
+<img src="images/mtdnaresults/nudt.png" width=500, alt="NCU">
 
 ## Abstract
 
@@ -142,14 +142,16 @@ In the current state of my model, it only simulates random genetic drift and rep
 
 ## Appendix
 
-Throughout my project I used GitHub to store my work and to share it with my project supervisors. The link to the GitHub repository can be found [here](https://github.com/lwlss/MacPherson_2020).
+### GitHub & weekly reports
+Throughout my project I used GitHub to store my work and to share it with my project supervisors. The link to the GitHub repository can be found [here](https://github.com/lwlss/MacPherson_2020).  A landing page for my weekly reports can be found [here](https://github.com/lwlss/MacPherson_2020/WEEKLYREPORTS.md).
 
+### Further plots from mtDNA model
 Additionally, all of the single iteration graphs which I simulated but didn&#39;t include in the report can be found, [here](https://github.com/lwlss/MacPherson_2020/tree/master/images/mtdnaresults).
 
-when I started my project I had little experience with coding, mitochondrial biology or mathematical models, I spent the majority of my project learning about these, as well as making many biochemical reaction networks and mathematical models. These include the [logistic map](https://github.com/lwlss/MacPherson_2020/blob/master/markdown/logistic_maps.md), the [Lorenz attractor](https://github.com/lwlss/MacPherson_2020/blob/master/markdown/week_review/week3.md), the [Lotka-Volterra predator-prey model](https://github.com/lwlss/MacPherson_2020/blob/master/markdown/week_review/week4.md), the [exponential and logistic models](https://github.com/lwlss/MacPherson_2020/blob/master/markdown/week_review/week4.md), and the [birth-death](https://github.com/lwlss/MacPherson_2020/blob/master/markdown/week_review/week4.md) model. At the end of every week during my project I spent some time making a weekly report in which I discussed what I had done that week. These can be found on the front page of the GitHub repository linked above.
+### Other modelling and visualisation work
+When I started my project I had little experience with coding, mitochondrial biology or mathematical models, I spent the majority of my project learning about these, as well as making many biochemical reaction networks and mathematical models. These include the [logistic map](https://github.com/lwlss/MacPherson_2020/blob/master/markdown/logistic_maps.md), the [Lorenz attractor](https://github.com/lwlss/MacPherson_2020/blob/master/markdown/week_review/week3.md), the [Lotka-Volterra predator-prey model](https://github.com/lwlss/MacPherson_2020/blob/master/markdown/week_review/week4.md), the [exponential and logistic models](https://github.com/lwlss/MacPherson_2020/blob/master/markdown/week_review/week4.md), and the [birth-death](https://github.com/lwlss/MacPherson_2020/blob/master/markdown/week_review/week4.md) model. At the end of every week during my project I spent some time making a weekly report in which I discussed what I had done that week. These can be found on the front page of the GitHub repository linked above.
 
-Julia
-
+### Julia
 There are two main features you want in a programming language when intending to use it for scientific research. These are high performance and simple syntax. Traditional languages used for scientific purposes such as C++ and Python only have one of these features respectively. Python, for example, is very popular due to its easy syntax, making it easy to learn and quick to write new code with but lacks the high-performance processing power which often means Python can take long amounts of time to run code. On the other hand, C++ boasts high-performance computation but has quite complicated syntax making it hard to learn and increasing the time for code to be written. The comparatively newer programming language Julia was designed specifically for scientific research purposes and satisfies both features at once. Julia has an easy to learn syntax, whilst still maintaining high-performance speeds. For these reasons I learnt and used Julia throughout my project.
 
 ## References
