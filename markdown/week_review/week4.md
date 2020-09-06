@@ -6,7 +6,7 @@ Following from the previous week, I took one step further and solved X<sub>n+3</
 
 Using wolfram Alpha once again, the roots of the equation X<sub>n+3</sub> = X<sub>n</sub> for Xn can be found to be:
 
-![xn3sol](../../images/xn3_solution.png)
+![xn3sol](../../images/xn3_solution.PNG)
 
 By inputting just one of the above solutions into the `vary` function for the values of X and running for 10 iterations, a stable set of identical images will be produced:
 
