@@ -89,7 +89,7 @@ end
 
 Which graphed some made up data in this form:
 
-![ScatterGraph5](../images/scatter5.png)
+![ScatterGraph5](../images/scatter5.PNG)
 
 I then tried to input one of the previous functions that I had made, but must have mixed them with the above one (I think because they both use "trace1") so I ended up with something that I think looks correct, however it has been plotted with the y-axis from above:
 
